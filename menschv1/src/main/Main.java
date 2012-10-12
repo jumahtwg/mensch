@@ -1,3 +1,4 @@
+package main;
 
 public class Main {
 
@@ -16,7 +17,6 @@ public class Main {
 		if (x > 7 | x == 0) {
 			getWuerfel();
 		}
-		
 		return x;
 	}
 	
