@@ -10,5 +10,14 @@ public class Main {
 		System.out.println("wie gehts dir ?");
 
 	}
-
+	public int getWuerfel() {
+		
+		int x = (int) (Math.random()*10);
+		if (x > 7 | x == 0) {
+			getWuerfel();
+		}
+		
+		return x;
+	}
+	
 }
