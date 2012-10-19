@@ -16,7 +16,7 @@ public class Player {
 	public Player(String name, Color color, int plNumber){
 		this.name = name;
 		this.color = color;
-		this. playerNumber = plNumber;
+		this.playerNumber = plNumber;
 		this.fig1= new Figure();
 		this.fig2 = new Figure();
 		this.fig3 = new Figure();
@@ -27,18 +27,17 @@ public class Player {
 		return name;
 	}
 
-	
-
 	public Color getColor() {
 		return color;
 	}
 
-	
 	public int getPlNumber() {
 		return this.playerNumber;
 	}
 
-
+	public int getFig() {
+		return fig1.getFigure();
+	}
 	public Figure getFig1() {
 		return fig1;
 	}
