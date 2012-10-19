@@ -8,10 +8,10 @@ public class Dice {
 		super();
 	}
 
-	public int getnewDice() {
+	public void createNewDice() {
 		int x = (int) (((Math.random()*10) % 6)+1);
 
-		return DiceNR = x;
+		DiceNR = x;
 	}
 	public int getDice() {
 		return DiceNR;
