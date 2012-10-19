@@ -2,20 +2,18 @@ package data;
 
 public class Dice {
 	
-	private int Dice;
+	private static int DiceNR;
 	
 	public Dice() {
 		super();
 	}
 
 	public int getnewDice() {
-		int x = (int) (Math.random()*10);
-		if (x > 7 | x == 0) {
-			getnewDice();
-		}
-		return x = Dice;
+		int x = (int) (((Math.random()*10) % 6)+1);
+
+		return DiceNR = x;
 	}
 	public int getDice() {
-		return Dice;
+		return DiceNR;
 	}
 }

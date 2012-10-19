@@ -1,5 +1,5 @@
 package main;
-
+import data.Dice;
 public class Main {
 
 	/**
@@ -9,15 +9,10 @@ public class Main {
 		// TODO Auto-generated method stub
 		System.out.println("hallo welt");
 		System.out.println("wie gehts dir ?");
-
-	}
-	public int getWuerfel() {
+		Dice i  = new Dice(); 
+		i.getnewDice();
+		System.out.println(i.getDice());
 		
-		int x = (int) (Math.random()*10);
-		if (x > 7 | x == 0) {
-			getWuerfel();
-		}
-		return x;
 	}
 	
 }
