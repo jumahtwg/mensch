@@ -2,12 +2,13 @@ package data;
 
 public class Figure {
 	private int FigurePos;
-
 	
-	public int getFigure() {
-		return FigurePos;
+	public Figure() {};
+	
+	public int getFigurePos() {
+		return this.FigurePos;
 	}
-	public void setFigure(int figure) {
+	public void setFigurePos(int figure) {
 		FigurePos = figure;
 	}
 
