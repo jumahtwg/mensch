@@ -1,0 +1,58 @@
+package Controller;
+
+import java.util.Scanner;
+
+import Models.Figure;
+import Models.Player;
+import Models.Playground;
+
+public class Controller {
+
+    Playground pg = new Playground();
+    
+    public int init() {
+
+	Scanner in = new Scanner(System.in);
+	System.out.println("Anzahl der Spieler eingeben");
+	int pl = in.nextInt();
+	for (int i = 1; i <= pl; i++) {
+	    System.out.println("Geben sie den Namen des " + i
+		    + ". Spielers ein");
+	    String name = in.next();
+	    this.pg.addPlayer(new Player(name, i));
+	}
+	return pl;
+    }
+    
+    public void comingOut(int playerID) {
+	int diceValue = 6;
+	int startField = pg.getPlayer(playerID).getStartField();
+	
+	System.out.println("Player1 rolls a " + diceValue);
+	/** if Player still got Figures on startStack **/
+	if(pg.getPlayer(playerID).figureStackEmpty() != true){
+	    Figure tmp = pg.getPlayer(playerID).popFigure();
+	    /**  if startField is Occupied AND figure on startField is not the players Figure **/
+	    if(pg.isOccupied(startField) && pg.getFigureOnPosition(startField).getFigurePlayer().getPlayerID() != playerID){
+		kickEnemyFigure(tmp, startField);
+	    }
+	    pg.setFigureOnPosition(tmp, startField);
+	    /** roll again **/
+	}
+    }
+    
+    
+    public void kickEnemyFigure(Figure newFigure, int position){
+	Figure old = pg.getFigureOnPosition(position);
+	old.getFigurePlayer().pushFigure(old);
+	pg.setFigureOnPosition(newFigure, position);
+    }
+    
+    public int moveForward(int positions){
+	    return 5;
+	}
+    
+    public void runningGame(){
+	
+    }
+}
