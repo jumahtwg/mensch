@@ -45,11 +45,19 @@ public class Controller {
     public void kickEnemyFigure(Figure newFigure, int position){
 	Figure old = pg.getFigureOnPosition(position);
 	old.getFigurePlayer().pushFigure(old);
+	old.resetWegLaenge();
 	pg.setFigureOnPosition(newFigure, position);
     }
     
-    public int moveForward(int positions){
-	    return 5;
+    public void moveForward(Figure fig, int positions){
+	    int current = fig.getFigurePos();
+	    int newPos = current + positions;
+	    if(pg.isOccupied(newPos)){
+		kickEnemyFigure(fig, newPos);
+		return;
+	    }
+	    pg.setFigureOnPosition(fig, newPos);
+	    return;
 	}
     
     public void runningGame(){
