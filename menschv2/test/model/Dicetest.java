@@ -21,7 +21,7 @@ public class Dicetest extends TestCase {
 	}
 	
 	@Test
-	public void test() {
+	public void testRoll() {
 		for (int i=0; i < 19900; i++) {
 			int x = dice.roll();					
 			assertTrue(x < 7 && x > 0);
