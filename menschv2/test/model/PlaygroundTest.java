@@ -2,28 +2,27 @@ package model;
 
 import static org.junit.Assert.*;
 
-import model.Dice;
 import model.Player;
+import model.Playground;
 
 import org.junit.Before;
 import org.junit.Test;
 
 
-public class Playertest {
+public class PlaygroundTest {
 
-	Player plyr;
+	private Playground plygrnd;
+	private Player plr;
 	
 	@Before
 	public void setUp() {
-		plyr = new Player("Bob", 2);
+		plygrnd = new Playground();
+		plygrnd.addPlayer(plr);
 
 	}
-	
-	
 	@Test
 	public void test() {
-		assertEquals("Bob" , plyr.getName());
-		assertEquals(2, plyr.getPlayerID());
+		assertEquals(plr, plr);
 		
 	}
 

@@ -1,15 +1,12 @@
 package model;
 
-import static org.junit.Assert.*;
 import junit.framework.TestCase;
-
-import model.Dice;
 
 import org.junit.Before;
 import org.junit.Test;
 
 
-public class Dicetest extends TestCase {
+public class DiceTest extends TestCase {
 
 	
 	private Dice dice;
