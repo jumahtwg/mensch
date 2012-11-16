@@ -25,10 +25,9 @@ public class Controller {
     }
     
     public void comingOut(int playerID) {
-	int diceValue = 6;
+
 	int startField = pg.getPlayer(playerID).getStartField();
 	
-	System.out.println("Player1 rolls a " + diceValue);
 	/** if Player still got Figures on startStack **/
 	if(pg.getPlayer(playerID).figureStackEmpty() != true){
 	    Figure tmp = pg.getPlayer(playerID).popFigure();
