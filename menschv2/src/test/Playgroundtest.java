@@ -10,8 +10,8 @@ import Models.Playground;
 
 public class Playgroundtest {
 
-	Playground plygrnd;
-	Player plr;
+	private Playground plygrnd;
+	private Player plr;
 	
 	@Before
 	public void setUp() {

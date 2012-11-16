@@ -11,8 +11,8 @@ import Models.Player;
 
 public class Figuretest {
 
-	Figure fig;
-	Player plyr;
+	private Figure fig;
+	private Player plyr;
 	
 	@Before
 	public void setUp() {

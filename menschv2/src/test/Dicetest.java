@@ -11,7 +11,7 @@ import Models.Dice;
 public class Dicetest extends TestCase {
 
 	
-	Dice dice;
+	private Dice dice;
 	
 	@Before
 	public void setUp() {
