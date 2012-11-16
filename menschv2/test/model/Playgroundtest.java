@@ -1,12 +1,13 @@
-package test;
+package model;
 
 import static org.junit.Assert.*;
+
+import model.Player;
+import model.Playground;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import Models.Player;
-import Models.Playground;
 
 public class Playgroundtest {
 
