@@ -1,9 +1,6 @@
 package model;
 
-import static org.junit.Assert.*;
-
-import model.Player;
-import model.Playground;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
