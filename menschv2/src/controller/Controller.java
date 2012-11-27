@@ -1,10 +1,10 @@
-package Controller;
+package controller;
 
 import java.util.Scanner;
 
-import Models.Figure;
-import Models.Player;
-import Models.Playground;
+import model.Figure;
+import model.Player;
+import model.Playground;
 
 public class Controller {
 
