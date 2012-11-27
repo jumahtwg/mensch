@@ -1,4 +1,4 @@
-package model;
+package Models;
 
 public class Figure {
 	private int wegLaenge;
@@ -14,17 +14,12 @@ public class Figure {
 	public int getFigurePos() {
 		return this.wegLaenge;
 	}
-	public void setFigurePos(int figure) {
-		wegLaenge = figure;
+	public void setFigurePos(int position) {
+		wegLaenge = position;
 	}
-	
 	
 	public void resetWegLaenge(){
 	    this.wegLaenge = 0;
-	}
-
-	public int getWegLaenge() {
-	    return wegLaenge;
 	}
 
 	public int getFigureID() {
@@ -33,6 +28,12 @@ public class Figure {
 	
 	public Player getFigurePlayer(){
 	    return this.player;
+	}
+	public void setWegLaenge(int w){
+	    this.wegLaenge =  this.wegLaenge + w;
+	}
+	public int getWeglaenge(){
+	    return this.wegLaenge;
 	}
 
 	

@@ -1,4 +1,4 @@
-package model;
+package Models;
 
 public class Dice {
 

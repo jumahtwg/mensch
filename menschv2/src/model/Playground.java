@@ -1,4 +1,4 @@
-package model;
+package Models;
 
 import java.util.*;
 
@@ -16,7 +16,7 @@ public class Playground {
 	private LinkedList<Player> players = new LinkedList<Player>();
 		
 	public Playground() {
-		this.fieldArray = new Figure[80];
+		this.fieldArray = new Figure[40];
 		this.target1 = new Figure[4];
 		this.target2 = new Figure[4];
 		this.target3 = new Figure[4];
@@ -40,6 +40,7 @@ public class Playground {
 	    return this.fieldArray[position];
 	}
 	public void setFigureOnPosition(Figure fig, int position){
+	    fig.setWegLaenge(position);
 	    this.fieldArray[position] = fig;
 	}
 	
@@ -51,6 +52,6 @@ public class Playground {
 	}	
 	
 	public Player getPlayer(int playerID){
-	    return (players.get(playerID -1)) ;
+	    return (players.get(playerID)) ;
 	}
 }

@@ -1,20 +1,21 @@
-package model;
+package Models;
 
 import java.util.*;
 
 public class Player {
 	
-	private final String name;
 	private final int playerID;
 	private Dice dice;
 	private int startField;
+	private int endField;
 		
 	private Stack<Figure> startStack = new Stack<Figure>();
+	private Figure[] pgFigureArray = new Figure[4];
 	
-	public Player(String name,int playerID){
-		this.name = name;
+	
+	public Player(int playerID){
 		this.playerID = playerID;
-		for(int i = 1;i <= 4; i++){
+		for(int i = 4;i > 0; i--){
 		    startStack.push(new Figure(i,this));
 		}
 		this.dice = new Dice();
@@ -28,25 +29,24 @@ public class Player {
 		    this.startField = 20;
 		case 4:
 		    this.startField = 30;
-		default:
-		    
+		default:  
 		}
+		this.endField =  startField - 1;
 	}
-
-	public String getName() {
-		return name;
-	}
-
+	
 	public int getPlayerID() {
 		return this.playerID;
 	}
 
 	public Figure popFigure() {
+	    Figure tmp;
 	    if(startStack.isEmpty()){
 		System.out.println("Keine Figuren mehr im Startfeld!");
 		return null;
 	    }
-	    return startStack.pop();
+	    tmp = startStack.pop();
+	    pgFigureArray[tmp.getFigureID()] = tmp;
+	    return tmp;
 	}
 	
 	public void pushFigure(Figure figure){
@@ -55,6 +55,7 @@ public class Player {
 		return;
 	    }
 	    figure.resetWegLaenge();
+	    pgFigureArray[figure.getFigureID()] = null;
 	    startStack.push(figure);
 	    return;
 	}
@@ -76,5 +77,18 @@ public class Player {
 	
 	public int getStartField(){
 	    return this.startField;
+	}
+	public Figure getFigure(int figureID){
+	    return pgFigureArray[figureID];
+	}
+	
+	public void printSoldiers(){
+	    for(int i = 0; i< 4;i++){
+		if(pgFigureArray[i] == null){
+		    System.out.println(" null ");
+		}else {
+		    System.out.println(" "+ pgFigureArray[i].getFigureID());
+		}
+	    }
 	}
 }
