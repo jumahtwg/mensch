@@ -2,6 +2,9 @@ package model;
 
 import java.util.*;
 
+import model.Figure;
+import model.Player;
+
 public class Playground {
 
 	private int anzMit;

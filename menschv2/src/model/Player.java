@@ -2,6 +2,9 @@ package model;
 
 import java.util.*;
 
+import model.Dice;
+import model.Figure;
+
 public class Player {
 	
 	private final int playerID;
@@ -81,7 +84,14 @@ public class Player {
 	public Figure getFigure(int figureID){
 	    return pgFigureArray[figureID];
 	}
-	
+	public void storeFigure(Figure fig){
+		for(int i = 0; i < pgFigureArray.length;i++){
+			if(pgFigureArray[i] == null){
+				pgFigureArray[i] = fig;
+				return;
+			}
+		}
+	}
 	public void printSoldiers(){
 	    for(int i = 0; i< 4;i++){
 		if(pgFigureArray[i] == null){
