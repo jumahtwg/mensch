@@ -40,10 +40,14 @@ public class Playground {
 	}
 	
 	public Figure getFigureOnPosition(int position){
+		if(this.fieldArray[position] == null){
+			return null;
+		}
 	    return this.fieldArray[position];
 	}
 	public void setFigureOnPosition(Figure fig, int position){
-	    fig.setWegLaenge(position);
+		if (fig != null)
+			fig.setWegLaenge(position);
 	    this.fieldArray[position] = fig;
 	}
 	
@@ -54,7 +58,12 @@ public class Playground {
 	    return true;
 	}	
 	
+	
 	public Player getPlayer(int playerID){
 	    return (players.get(playerID)) ;
 	}
+	public Figure[] getFieldArray(){
+		return fieldArray;
+	}
+	
 }

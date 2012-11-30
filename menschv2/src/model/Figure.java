@@ -26,11 +26,11 @@ public class Figure {
 	    return figureID;
 	}
 	
-	public Player getFigurePlayer(){
+	public Player hasPlayer(){
 	    return this.player;
 	}
 	public void setWegLaenge(int w){
-	    this.wegLaenge =  this.wegLaenge + w;
+	    this.wegLaenge =  this.wegLaenge;
 	}
 	public int getWeglaenge(){
 	    return this.wegLaenge;
