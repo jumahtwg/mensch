@@ -31,17 +31,20 @@ public class PlayerTest {
 		assertTrue(x < 7 && x > 0);
 		assertEquals(4, plyr0.getStackSize());
 		assertFalse(plyr0.figureStackEmpty());
-		for(int i=0; i< 4; i++){
+		for(int i=0; i< 5; i++){
 			plyr0.popFigure();
 		}
 		assertTrue(plyr0.figureStackEmpty());
+		plyr0.pushFigure(plyr0.getFigure(0));
 		
 		for(int i=0; i< 4; i++){
 			plyr0.storeFigure(plyr0.getFigure(i));
 		}
 		plyr0.getPgFigureArray();
 		assertFalse(plyr0.figureArrayEmpty());
-		
+		plyr0.removeFigureFromActiveSoldiers(plyr0.getFigure(0));
+		assertTrue(plyr0.isFigureAvailable(0));
+		assertFalse(plyr0.isFigureAvailable(4));
 	}
 
 }
