@@ -23,7 +23,7 @@ public class PlayerTest {
 
 	@Test
 	public void test() {
-		assertEquals(0 , plyr0.getPlayerID());
+		assertEquals(0, plyr0.getPlayerID());
 		assertEquals(0, plyr0.getStartField());
 		
 		plyr0.pushFigure(plyr0.getFigure(0));
@@ -40,6 +40,7 @@ public class PlayerTest {
 			plyr0.storeFigure(plyr0.getFigure(i));
 		}
 		plyr0.getPgFigureArray();
+		assertFalse(plyr0.figureArrayEmpty());
 		
 	}
 
