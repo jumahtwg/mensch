@@ -1,17 +1,14 @@
 package view;
 
-import java.util.Scanner;
-
 import model.Figure;
-import model.Player;
 
 public class TextGUI {
-	private static final int eins = 1;
-	private static final int zwei = 2;
-	private static final int drei = 3;
-	private static final int vier = 4;
-	private static final int fuenf = 5;
-	private static final int sechs = 6;
+	private static final int EINS = 1;
+	private static final int ZWEI = 2;
+	private static final int DREI = 3;
+	private static final int VIER = 4;
+	private static final int FUENF = 5;
+	private static final int SECHS = 6;
 	
 
 	public static void printArrayInformation(Figure array[], int i) {
@@ -73,7 +70,7 @@ public class TextGUI {
 		System.out.println("Player " + playerID + " würfel: ");
 
 		switch (value){
-		case eins:
+		case EINS:
 			System.out.println(" -------");
 			System.out.println("|       |");
 			System.out.println("|   O   |");
@@ -81,35 +78,35 @@ public class TextGUI {
 			System.out.println(" ------- ");
 			break;
 
-		case zwei:
+		case ZWEI:
 			System.out.println(" -------");
 			System.out.println("|     O |");
 			System.out.println("|       |");
 			System.out.println("| O     |");
 			System.out.println(" ------- ");
 			break;
-		case drei:
+		case DREI:
 			System.out.println(" -------");
 			System.out.println("|     O |");
 			System.out.println("|   O   |");
 			System.out.println("| O     |");
 			System.out.println(" ------- ");
 			break;
-		case vier:
+		case VIER:
 			System.out.println(" -------");
 			System.out.println("| O   O |");
 			System.out.println("|       |");
 			System.out.println("| O   O |");
 			System.out.println(" ------- ");
 			break;
-		case fuenf:
+		case FUENF:
 			System.out.println(" -------");
 			System.out.println("| O   O |");
 			System.out.println("|   O   |");
 			System.out.println("| O   O |");
 			System.out.println(" ------- ");
 			break;
-		case sechs:
+		case SECHS:
 			System.out.println(" -------");
 			System.out.println("| O   O |");
 			System.out.println("| O   O |");

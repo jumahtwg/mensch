@@ -14,10 +14,10 @@ public class Controller {
 	private int maxGefahreneWeglaenge = 39;
 	private int gewuerfeltSechs = 6;
 	private int vorhandeneFiguren = 4;
-	private final int erstesZielfeld = 40;
-	private final int zweitesZielfeld = 41;
-	private final int drittesZielfeld = 42;
-	private final int viertesZielfeld = 43;
+	private static final int ERSTESZIELFELD = 40;
+	private static final int ZWEITESZIELFELD = 41;
+	private static final int DRITTESTZIELFELD = 42;
+	private static final int VIERTESZIELFELD = 43;
 
 	public Controller() {
 		this.pg = new Playground();
@@ -72,22 +72,22 @@ public class Controller {
 		if (fig.getWeglaenge() > maxGefahreneWeglaenge) {
 			int c = fig.getWeglaenge();
 			switch (c) {
-			case erstesZielfeld:
+			case ERSTESZIELFELD:
 				pg.storeFigure(fig, 0);
 				pg.getPlayer(fig.getPlayerID()).removeFigureFromActiveSoldiers(fig);
 				pg.setFigureOnPosition(null, oldPos);
 				return;
-			case zweitesZielfeld:
+			case ZWEITESZIELFELD:
 				pg.storeFigure(fig, 1);
 				pg.getPlayer(fig.getPlayerID()).removeFigureFromActiveSoldiers(fig);
 				pg.setFigureOnPosition(null, oldPos);
 				return;
-			case drittesZielfeld:
+			case DRITTESTZIELFELD:
 				pg.storeFigure(fig, 2);
 				pg.getPlayer(fig.getPlayerID()).removeFigureFromActiveSoldiers(fig);
 				pg.setFigureOnPosition(null, oldPos);
 				return;
-			case viertesZielfeld:
+			case VIERTESZIELFELD:
 				pg.storeFigure(fig, 3);
 				pg.getPlayer(fig.getPlayerID()).removeFigureFromActiveSoldiers(fig);
 				pg.setFigureOnPosition(null, oldPos);

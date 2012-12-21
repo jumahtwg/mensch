@@ -10,17 +10,16 @@ public class Player {
 	private final int playerID;
 	private Dice dice;
 	private int startField;
-	private int endField;
 	private int spielfiguren = 4;
-	private final int maxspielfiguren = 4;
+	private static final int MAXSPIELFIGUREN = 4;
 	private int startfeldspieler1 = 0;
 	private int startfeldspieler2 = 10;
 	private int startfeldspieler3 = 20;
 	private int startfeldspieler4 = 30;
-	public static final int spieler1 = 0;
-	public static final int spieler2 = 1;
-	public static final int spieler3 = 2;
-	public static final int spieler4 = 3;
+	public static final int SPIELER1 = 0;
+	public static final int SPIELER2 = 1;
+	public static final int SPIELER3 = 2;
+	public static final int SPIELER4 = 3;
 
 	private Deque<Figure> startStack = new ArrayDeque<Figure>();
 	private Figure[] pgFigureArray = new Figure[spielfiguren];
@@ -33,21 +32,20 @@ public class Player {
 		this.dice = new Dice();
 
 		switch (playerID) {
-		case spieler1:
+		case SPIELER1:
 			this.startField = startfeldspieler1;
 			break;
-		case spieler2:
+		case SPIELER2:
 			this.startField = startfeldspieler2;
 			break;
-		case spieler3:
+		case SPIELER3:
 			this.startField = startfeldspieler3;
 			break;
-		case spieler4:
+		case SPIELER4:
 			this.startField = startfeldspieler4;
 			break;
 		default:
 		}
-		this.endField = startField - 1;
 	}
 
 	public int getPlayerID() {
@@ -67,7 +65,7 @@ public class Player {
 	}
 
 	public void pushFigure(Figure figure) {
-		if (startStack.size() == maxspielfiguren) {
+		if (startStack.size() == MAXSPIELFIGUREN) {
 			System.out
 					.println("Alle Figuren des Spielers sind bereits im Startfeld");
 			return;

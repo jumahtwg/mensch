@@ -69,13 +69,13 @@ public class Playground {
 	}
 	public Figure[] getTargetArray(int playerID){
 		switch(playerID){
-		case Player.spieler1:
+		case Player.SPIELER1:
 			return target1;
-		case Player.spieler2:
+		case Player.SPIELER2:
 			return target2;
-		case Player.spieler3:
+		case Player.SPIELER3:
 			return target3;
-		case Player.spieler4:
+		case Player.SPIELER4:
 			return target4;
 		default:
 			return null;
@@ -86,16 +86,16 @@ public class Playground {
 		int c = fig.getPlayerID();
 		switch(c)
 		{
-		case Player.spieler1:
+		case Player.SPIELER1:
 			target1[storagePoint] = fig;
 			break;
-		case Player.spieler2:
+		case Player.SPIELER2:
 			target2[storagePoint] = fig;
 			break;
-		case Player.spieler3:
+		case Player.SPIELER3:
 			target3[storagePoint] = fig;
 			break;
-		case Player.spieler4:
+		case Player.SPIELER4:
 			target4[storagePoint] = fig;
 			break;
 		}
