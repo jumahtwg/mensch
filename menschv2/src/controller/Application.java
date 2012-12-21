@@ -1,6 +1,8 @@
 package controller;
 
 public class Application {
+	
+	private Application() {}
 
     /**
      * @param args

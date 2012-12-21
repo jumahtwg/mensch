@@ -9,8 +9,8 @@ public class Playground {
 
 	private int anzMit;
 	private Figure fieldArray[];
-	private int feldlaenge = 40;
-	private int zielfeldlaenge = 4;
+	private static final int FELDLAENGE = 40;
+	private static final int ZIELFELDLAENGE = 4;
 	
 	private Figure target1[];
 	private Figure target2[];
@@ -20,11 +20,11 @@ public class Playground {
 	private LinkedList<Player> players = new LinkedList<Player>();
 		
 	public Playground() {
-		this.fieldArray = new Figure[feldlaenge];
-		this.target1 = new Figure[zielfeldlaenge];
-		this.target2 = new Figure[zielfeldlaenge];
-		this.target3 = new Figure[zielfeldlaenge];
-		this.target4 = new Figure[zielfeldlaenge];
+		this.fieldArray = new Figure[FELDLAENGE];
+		this.target1 = new Figure[ZIELFELDLAENGE];
+		this.target2 = new Figure[ZIELFELDLAENGE];
+		this.target3 = new Figure[ZIELFELDLAENGE];
+		this.target4 = new Figure[ZIELFELDLAENGE];
 		this.anzMit = 0;
 	}
 

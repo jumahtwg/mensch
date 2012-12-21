@@ -2,6 +2,8 @@ package controller;
 
 import java.util.Scanner;
 
+import org.omg.CORBA.portable.ApplicationException;
+
 import model.Figure;
 import model.Player;
 import model.Playground;
@@ -10,10 +12,10 @@ import view.TextGUI;
 public class Controller {
 
 	private Playground pg;
-	private final int maxSpieler = 4;
-	private int maxGefahreneWeglaenge = 39;
-	private int gewuerfeltSechs = 6;
-	private int vorhandeneFiguren = 4;
+	private static final int MAXSPIELER = 4;
+	private static final int MAXGEFAHRENEWEGLAENGE = 39;
+	private static final int GEWUERFELTESECHS = 6;
+	private static final int VORHANDENEFIGUREN = 4;
 	private static final int ERSTESZIELFELD = 40;
 	private static final int ZWEITESZIELFELD = 41;
 	private static final int DRITTESTZIELFELD = 42;
@@ -30,7 +32,7 @@ public class Controller {
 		int pl = in.nextInt();
 		System.out.println("pl ist " + pl);
 		
-		while (pl > maxSpieler ) {
+		while (pl > MAXSPIELER ) {
 			System.out.println("Maximale Spieleranzahl: 4, bitte eingeben.");
 			pl = in.nextInt();
 		}
@@ -69,7 +71,7 @@ public class Controller {
 		 * into Array
 		 **/
 
-		if (fig.getWeglaenge() > maxGefahreneWeglaenge) {
+		if (fig.getWeglaenge() > MAXGEFAHRENEWEGLAENGE) {
 			int c = fig.getWeglaenge();
 			switch (c) {
 			case ERSTESZIELFELD:
@@ -99,8 +101,8 @@ public class Controller {
 
 		}
 		
-		if( newPos > maxGefahreneWeglaenge){
-			newPos = newPos % maxGefahreneWeglaenge;
+		if( newPos > MAXGEFAHRENEWEGLAENGE){
+			newPos = newPos % MAXGEFAHRENEWEGLAENGE;
 			fig.setFigurePos(newPos);
 		} else {
 			fig.setFigurePos(newPos);
@@ -140,6 +142,7 @@ public class Controller {
 		}
 		return pg.getPlayer(playerID).getFigure(tmp);
 			
+
 		
 	}
 
@@ -154,10 +157,10 @@ public class Controller {
 			 * wenn erster Wurf keine 6 und Spieler hat noch alle Figuren auf
 			 * Stack, w�rfle 2 weitere Male
 			 **/
-			if ((roll != gewuerfeltSechs && pg.getPlayer(i).getStackSize() == vorhandeneFiguren) 
-					|| (roll != gewuerfeltSechs && pg.getPlayer(i).getStackSize() != vorhandeneFiguren 
+			if ((roll != GEWUERFELTESECHS && pg.getPlayer(i).getStackSize() == VORHANDENEFIGUREN) 
+					|| (roll != GEWUERFELTESECHS && pg.getPlayer(i).getStackSize() != VORHANDENEFIGUREN 
 					&& pg.getPlayer(i).figureArrayEmpty() )) {
-				for (int k = 0; k < 2 && roll != gewuerfeltSechs; k++) {
+				for (int k = 0; k < 2 && roll != GEWUERFELTESECHS; k++) {
 					roll = pg.getPlayer(i).rolling();
 					
 					TextGUI.printDice(pg.getPlayer(i).getPlayerID(), roll);
@@ -165,7 +168,7 @@ public class Controller {
 					/** wenn Wurf immernoch keine 6 , n�chster Spieler **/
 
 				}
-				if (roll != gewuerfeltSechs) {
+				if (roll != GEWUERFELTESECHS) {
 					i++;
 					if (i == pl) {
 						i = 0;
@@ -181,12 +184,12 @@ public class Controller {
 			 * 
 			 */
 			
-			if (roll == gewuerfeltSechs && pg.getPlayer(i).figureStackEmpty() == false) {
+			if (roll == GEWUERFELTESECHS && pg.getPlayer(i).figureStackEmpty() == false) {
 				System.out.println("Spieler " + i + " kommt raus!");
 				comingOut(i);
-			} else if (roll == gewuerfeltSechs && pg.getPlayer(i).figureStackEmpty() == true) {
+			} else if (roll == GEWUERFELTESECHS && pg.getPlayer(i).figureStackEmpty() == true) {
 				moveForward(pickFigure(i), roll);
-			} else if (roll != gewuerfeltSechs)
+			} else if (roll != GEWUERFELTESECHS)
 				moveForward(pickFigure(i), roll);
 			i++;
 			if (i == pl) {
