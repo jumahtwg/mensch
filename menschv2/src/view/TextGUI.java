@@ -6,6 +6,13 @@ import model.Figure;
 import model.Player;
 
 public class TextGUI {
+	private static final int eins = 1;
+	private static final int zwei = 2;
+	private static final int drei = 3;
+	private static final int vier = 4;
+	private static final int fuenf = 5;
+	private static final int sechs = 6;
+	
 
 	public static void printArrayInformation(Figure array[], int i) {
 		switch(i){
@@ -66,7 +73,7 @@ public class TextGUI {
 		System.out.println("Player " + playerID + " würfel: ");
 
 		switch (value){
-		case 1:
+		case eins:
 			System.out.println(" -------");
 			System.out.println("|       |");
 			System.out.println("|   O   |");
@@ -74,35 +81,35 @@ public class TextGUI {
 			System.out.println(" ------- ");
 			break;
 
-		case 2:
+		case zwei:
 			System.out.println(" -------");
 			System.out.println("|     O |");
 			System.out.println("|       |");
 			System.out.println("| O     |");
 			System.out.println(" ------- ");
 			break;
-		case 3:
+		case drei:
 			System.out.println(" -------");
 			System.out.println("|     O |");
 			System.out.println("|   O   |");
 			System.out.println("| O     |");
 			System.out.println(" ------- ");
 			break;
-		case 4:
+		case vier:
 			System.out.println(" -------");
 			System.out.println("| O   O |");
 			System.out.println("|       |");
 			System.out.println("| O   O |");
 			System.out.println(" ------- ");
 			break;
-		case 5:
+		case fuenf:
 			System.out.println(" -------");
 			System.out.println("| O   O |");
 			System.out.println("|   O   |");
 			System.out.println("| O   O |");
 			System.out.println(" ------- ");
 			break;
-		case 6:
+		case sechs:
 			System.out.println(" -------");
 			System.out.println("| O   O |");
 			System.out.println("| O   O |");

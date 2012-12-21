@@ -14,6 +14,10 @@ public class Controller {
 	private int maxGefahreneWeglaenge = 39;
 	private int gewuerfeltSechs = 6;
 	private int vorhandeneFiguren = 4;
+	private final int erstesZielfeld = 40;
+	private final int zweitesZielfeld = 41;
+	private final int drittesZielfeld = 42;
+	private final int viertesZielfeld = 43;
 
 	public Controller() {
 		this.pg = new Playground();
@@ -64,26 +68,26 @@ public class Controller {
 		 * wenn Figur mit aktuellen Wurf über eine Runde gelaufen ist -> store
 		 * into Array
 		 **/
-		
+
 		if (fig.getWeglaenge() > maxGefahreneWeglaenge) {
 			int c = fig.getWeglaenge();
 			switch (c) {
-			case 40:
+			case erstesZielfeld:
 				pg.storeFigure(fig, 0);
 				pg.getPlayer(fig.getPlayerID()).removeFigureFromActiveSoldiers(fig);
 				pg.setFigureOnPosition(null, oldPos);
 				return;
-			case 41:
+			case zweitesZielfeld:
 				pg.storeFigure(fig, 1);
 				pg.getPlayer(fig.getPlayerID()).removeFigureFromActiveSoldiers(fig);
 				pg.setFigureOnPosition(null, oldPos);
 				return;
-			case 42:
+			case drittesZielfeld:
 				pg.storeFigure(fig, 2);
 				pg.getPlayer(fig.getPlayerID()).removeFigureFromActiveSoldiers(fig);
 				pg.setFigureOnPosition(null, oldPos);
 				return;
-			case 43:
+			case viertesZielfeld:
 				pg.storeFigure(fig, 3);
 				pg.getPlayer(fig.getPlayerID()).removeFigureFromActiveSoldiers(fig);
 				pg.setFigureOnPosition(null, oldPos);

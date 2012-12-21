@@ -17,6 +17,10 @@ public class Player {
 	private int startfeldspieler2 = 10;
 	private int startfeldspieler3 = 20;
 	private int startfeldspieler4 = 30;
+	public static final int spieler1 = 0;
+	public static final int spieler2 = 1;
+	public static final int spieler3 = 2;
+	public static final int spieler4 = 3;
 
 	private Deque<Figure> startStack = new ArrayDeque<Figure>();
 	private Figure[] pgFigureArray = new Figure[spielfiguren];
@@ -29,16 +33,16 @@ public class Player {
 		this.dice = new Dice();
 
 		switch (playerID) {
-		case 0:
+		case spieler1:
 			this.startField = startfeldspieler1;
 			break;
-		case 1:
+		case spieler2:
 			this.startField = startfeldspieler2;
 			break;
-		case 2:
+		case spieler3:
 			this.startField = startfeldspieler3;
 			break;
-		case 3:
+		case spieler4:
 			this.startField = startfeldspieler4;
 			break;
 		default:
