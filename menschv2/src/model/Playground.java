@@ -52,10 +52,10 @@ public class Playground {
 	}
 	
 	public boolean isOccupied(int position) {
-	    if(this.fieldArray[position] == null) {
-		return false;
+	    if(this.fieldArray[position] != null) {
+		return true;
 	    }
-	    return true;
+	    return false;
 	}	
 	
 	

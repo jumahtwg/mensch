@@ -123,8 +123,4 @@ public class Player {
 			return true;
 		}
 	}
-	
-	public void hasFigure(Figure fig){
-		
-	}
 }

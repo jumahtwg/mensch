@@ -37,6 +37,7 @@ public class TextGUI {
 	public static void printActiveFigures(Figure array[]){
 		for (int i = 0; i < array.length; i++) {
 			if (array[i] == null) {
+				return;
 			}else{
 				printFigureStatus(array[i]);
 			}
@@ -44,15 +45,7 @@ public class TextGUI {
 		System.out.println();
 	}
 	
-//	public static void printStatusLine(int i){
-//		switch (i)
-//		{
-//		case 1:
-//			System.out.println("Spieler");
-//		
-//		}
-//				
-//	}
+
 	
 	public static void printFigureStatus(Figure fig){
 		System.out.println("-----------------------------------------------");
