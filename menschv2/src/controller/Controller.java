@@ -93,7 +93,6 @@ public class Controller {
 		}
 	}
 	
-	
 	public void moveForward(Figure fig, int positions) {
 
 		int oldPos = fig.getFigurePos();
@@ -159,23 +158,20 @@ public class Controller {
 		while (i < pl) {
 			int roll = 0;
 			
-			roll = pg.getPlayer(i).rolling();
-			TextGUI.printDice(pg.getPlayer(i).getPlayerID(), roll);
 			/**
 			 * wenn erster Wurf keine 6 und Spieler hat noch alle Figuren auf
 			 * Stack, wï¿½rfle 2 weitere Male
 			 **/
-			if ((roll != GEWUERFELTESECHS && pg.getPlayer(i).getStackSize() == VORHANDENEFIGUREN) 
-					|| (roll != GEWUERFELTESECHS && pg.getPlayer(i).getStackSize() != VORHANDENEFIGUREN 
-					&& pg.getPlayer(i).figureArrayEmpty() )) {
-				for (int k = 0; k < 2 && roll != GEWUERFELTESECHS; k++) {
+			
+			if(pg.getPlayer(i).getStackSize() == VORHANDENEFIGUREN){
+				int diceCount = 0;
+				while(roll != GEWUERFELTESECHS && diceCount < 3){
 					roll = pg.getPlayer(i).rolling();
-					
 					TextGUI.printDice(pg.getPlayer(i).getPlayerID(), roll);
-
-					/** wenn Wurf immernoch keine 6 , nï¿½chster Spieler **/
-
+					diceCount++;
+					
 				}
+				System.out.println("_________________");
 				if (roll != GEWUERFELTESECHS) {
 					i++;
 					if (i == pl) {
@@ -183,8 +179,33 @@ public class Controller {
 					}
 					continue;
 				}
+			}else{
+				roll = pg.getPlayer(i).rolling();
+				TextGUI.printDice(pg.getPlayer(i).getPlayerID(), roll);
 			}
-			
+					
+//			if ((roll != GEWUERFELTESECHS && pg.getPlayer(i).getStackSize() == VORHANDENEFIGUREN) ) {
+//				for (int k = 0; k < 2 && roll != GEWUERFELTESECHS; k++) {
+//					roll = pg.getPlayer(i).rolling();
+//					
+//					TextGUI.printDice(pg.getPlayer(i).getPlayerID(), roll);
+//
+//					/** wenn Wurf immernoch keine 6 , nï¿½chster Spieler **/
+//
+//				}
+//				
+//				if (roll != GEWUERFELTESECHS) {
+//					i++;
+//					if (i == pl) {
+//						i = 0;
+//					}
+//					continue;
+//				}
+//			}
+//		     // wenn erster Wurf keine 6 und Spieler hat nicht mehr alle Figuren auf Stack
+//			 (roll != GEWUERFELTESECHS && pg.getPlayer(i).getStackSize() != VORHANDENEFIGUREN 
+//						&& pg.getPlayer(i).figureArrayEmpty()
+//			
 
 			/**
 			 * wenn würfel 6 zeigt UND spieler noch figuren auf Stack hat UND
