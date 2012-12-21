@@ -2,8 +2,6 @@ package controller;
 
 import java.util.Scanner;
 
-import org.omg.CORBA.portable.ApplicationException;
-
 import model.Figure;
 import model.Player;
 import model.Playground;
@@ -189,8 +187,9 @@ public class Controller {
 				comingOut(i);
 			} else if (roll == GEWUERFELTESECHS && pg.getPlayer(i).figureStackEmpty() == true) {
 				moveForward(pickFigure(i), roll);
-			} else if (roll != GEWUERFELTESECHS)
+			} else if (roll != GEWUERFELTESECHS) {
 				moveForward(pickFigure(i), roll);
+			}
 			i++;
 			if (i == pl) {
 				i = 0;

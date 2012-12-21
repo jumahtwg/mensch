@@ -3,6 +3,8 @@ package view;
 import model.Figure;
 
 public class TextGUI {
+	private TextGUI() {}
+	
 	private static final int EINS = 1;
 	private static final int ZWEI = 2;
 	private static final int DREI = 3;
