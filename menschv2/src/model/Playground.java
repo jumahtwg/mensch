@@ -9,7 +9,8 @@ public class Playground {
 
 	private int anzMit;
 	private Figure fieldArray[];
-	
+	private int feldlaenge = 40;
+	private int zielfeldlaenge = 4;
 	
 	private Figure target1[];
 	private Figure target2[];
@@ -19,11 +20,11 @@ public class Playground {
 	private LinkedList<Player> players = new LinkedList<Player>();
 		
 	public Playground() {
-		this.fieldArray = new Figure[40];
-		this.target1 = new Figure[4];
-		this.target2 = new Figure[4];
-		this.target3 = new Figure[4];
-		this.target4 = new Figure[4];
+		this.fieldArray = new Figure[feldlaenge];
+		this.target1 = new Figure[zielfeldlaenge];
+		this.target2 = new Figure[zielfeldlaenge];
+		this.target3 = new Figure[zielfeldlaenge];
+		this.target4 = new Figure[zielfeldlaenge];
 		this.anzMit = 0;
 	}
 
@@ -46,8 +47,9 @@ public class Playground {
 	    return this.fieldArray[position];
 	}
 	public void setFigureOnPosition(Figure fig, int position){
-		if (fig != null)
+		if (fig != null) {
 			fig.setFigurePos(position);
+		}
 	    this.fieldArray[position] = fig;
 	}
 	

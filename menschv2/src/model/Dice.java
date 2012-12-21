@@ -1,9 +1,8 @@
 package model;
 
 public class Dice {
-
+	private int WuerfelAugen = 6;
 	public int roll() {
-		int x =  (int)(((Math.random()*10) % 6)+1);
-		return x;
+		return (int)(((Math.random()*10) % WuerfelAugen)+1);
 	}
 }

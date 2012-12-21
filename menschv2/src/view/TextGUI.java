@@ -27,8 +27,9 @@ public class TextGUI {
 			if (array[i] != null) {
 				System.out.print("[" + array[i].hasPlayer().getPlayerID()
 						+ ":" + array[i].getFigureID() + "]");
-			}else
+			} else {
 				System.out.print("[ ]");
+			}
 		}
 		System.out.println();
 		System.out.println();
@@ -63,6 +64,7 @@ public class TextGUI {
 	
 	public static void printDice(int playerID, int value){
 		System.out.println("Player " + playerID + " würfel: ");
+
 		switch (value){
 		case 1:
 			System.out.println(" -------");

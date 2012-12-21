@@ -9,7 +9,11 @@ import view.TextGUI;
 
 public class Controller {
 
-	Playground pg;
+	private Playground pg;
+	private final int maxSpieler = 4;
+	private int maxGefahreneWeglaenge = 39;
+	private int gewuerfeltSechs = 6;
+	private int vorhandeneFiguren = 4;
 
 	public Controller() {
 		this.pg = new Playground();
@@ -22,7 +26,7 @@ public class Controller {
 		int pl = in.nextInt();
 		System.out.println("pl ist " + pl);
 		
-		while (pl > 4 ) {
+		while (pl > maxSpieler ) {
 			System.out.println("Maximale Spieleranzahl: 4, bitte eingeben.");
 			pl = in.nextInt();
 		}
@@ -61,7 +65,7 @@ public class Controller {
 		 * into Array
 		 **/
 		
-		if (fig.getWeglaenge() > 39) {
+		if (fig.getWeglaenge() > maxGefahreneWeglaenge) {
 			int c = fig.getWeglaenge();
 			switch (c) {
 			case 40:
@@ -91,11 +95,12 @@ public class Controller {
 
 		}
 		
-		if( newPos > 39){
-			newPos = newPos % 39;
+		if( newPos > maxGefahreneWeglaenge){
+			newPos = newPos % maxGefahreneWeglaenge;
 			fig.setFigurePos(newPos);
-		}else
+		} else {
 			fig.setFigurePos(newPos);
+		}
 
 		/** wenn neues Feld besetzt und Figur auf Feld ist NICHT die eigene **/
 		if (pg.isOccupied(newPos)
@@ -126,9 +131,9 @@ public class Controller {
 		TextGUI.printActiveFigures(pg.getPlayer(playerID).getPgFigureArray());
 		Scanner in = new Scanner(System.in);
 		tmp = in.nextInt();
-		while(!pg.getPlayer(playerID).isFigureAvailable(tmp))
+		while(!pg.getPlayer(playerID).isFigureAvailable(tmp)) {
 			tmp = in.nextInt();
-	
+		}
 		return pg.getPlayer(playerID).getFigure(tmp);
 			
 		
@@ -145,10 +150,10 @@ public class Controller {
 			 * wenn erster Wurf keine 6 und Spieler hat noch alle Figuren auf
 			 * Stack, w�rfle 2 weitere Male
 			 **/
-			if ((roll != 6 && pg.getPlayer(i).getStackSize() == 4) 
-					|| (roll != 6 && pg.getPlayer(i).getStackSize() != 4 
+			if ((roll != gewuerfeltSechs && pg.getPlayer(i).getStackSize() == vorhandeneFiguren) 
+					|| (roll != gewuerfeltSechs && pg.getPlayer(i).getStackSize() != vorhandeneFiguren 
 					&& pg.getPlayer(i).figureArrayEmpty() )) {
-				for (int k = 0; k < 2 && roll != 6; k++) {
+				for (int k = 0; k < 2 && roll != gewuerfeltSechs; k++) {
 					roll = pg.getPlayer(i).rolling();
 					
 					TextGUI.printDice(pg.getPlayer(i).getPlayerID(), roll);
@@ -156,7 +161,7 @@ public class Controller {
 					/** wenn Wurf immernoch keine 6 , n�chster Spieler **/
 
 				}
-				if (roll != 6) {
+				if (roll != gewuerfeltSechs) {
 					i++;
 					if (i == pl) {
 						i = 0;
@@ -172,12 +177,12 @@ public class Controller {
 			 * 
 			 */
 			
-			if (roll == 6 && pg.getPlayer(i).figureStackEmpty() == false) {
+			if (roll == gewuerfeltSechs && pg.getPlayer(i).figureStackEmpty() == false) {
 				System.out.println("Spieler " + i + " kommt raus!");
 				comingOut(i);
-			} else if (roll == 6 && pg.getPlayer(i).figureStackEmpty() == true) {
+			} else if (roll == gewuerfeltSechs && pg.getPlayer(i).figureStackEmpty() == true) {
 				moveForward(pickFigure(i), roll);
-			} else if (roll != 6)
+			} else if (roll != gewuerfeltSechs)
 				moveForward(pickFigure(i), roll);
 			i++;
 			if (i == pl) {
