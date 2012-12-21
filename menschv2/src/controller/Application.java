@@ -1,6 +1,6 @@
 package controller;
 
-public class Application {
+public final class Application {
 	
 	private Application() {}
 

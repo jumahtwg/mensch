@@ -17,7 +17,7 @@ public class Playground {
 	private Figure target3[];
 	private Figure target4[];
 	
-	private LinkedList<Player> players = new LinkedList<Player>();
+	private List<Player> players = new LinkedList<Player>();
 		
 	public Playground() {
 		this.fieldArray = new Figure[FELDLAENGE];

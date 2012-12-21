@@ -19,7 +19,7 @@ public class TestController extends TestCase {
 	}
 	@Test
 	public void test() {
-		
+		ctrl.comingOut(0);
 	}
 
 }

@@ -16,8 +16,14 @@ public class Controller {
 	private static final int VORHANDENEFIGUREN = 4;
 	private static final int ERSTESZIELFELD = 40;
 	private static final int ZWEITESZIELFELD = 41;
-	private static final int DRITTESTZIELFELD = 42;
+	private static final int DRITTESZIELFELD = 42;
 	private static final int VIERTESZIELFELD = 43;
+	private static final int NULL = 0;
+	private static final int EINS = 1;
+	private static final int ZWEI = 2;
+	private static final int DREI = 3;
+
+	
 
 	public Controller() {
 		this.pg = new Playground();
@@ -58,6 +64,36 @@ public class Controller {
 		enemy.hasPlayer().pushFigure(enemy);
 	}
 
+	public void storeFigure(Figure fig, int oldPos){
+		int c = fig.getWeglaenge();
+		switch (c) {
+		case ERSTESZIELFELD:
+			pg.storeFigure(fig, NULL);
+			pg.getPlayer(fig.getPlayerID()).removeFigureFromActiveSoldiers(fig);
+			pg.setFigureOnPosition(null, oldPos);
+			return;
+		case ZWEITESZIELFELD:
+			pg.storeFigure(fig, EINS);
+			pg.getPlayer(fig.getPlayerID()).removeFigureFromActiveSoldiers(fig);
+			pg.setFigureOnPosition(null, oldPos);
+			return;
+		case DRITTESZIELFELD:
+			pg.storeFigure(fig, ZWEI);
+			pg.getPlayer(fig.getPlayerID()).removeFigureFromActiveSoldiers(fig);
+			pg.setFigureOnPosition(null, oldPos);
+			return;
+		case VIERTESZIELFELD:
+			pg.storeFigure(fig, DREI);
+			pg.getPlayer(fig.getPlayerID()).removeFigureFromActiveSoldiers(fig);
+			pg.setFigureOnPosition(null, oldPos);
+			return;
+		default:
+			fig.setFigurePos(oldPos);
+			return;
+		}
+	}
+	
+	
 	public void moveForward(Figure fig, int positions) {
 
 		int oldPos = fig.getFigurePos();
@@ -70,33 +106,7 @@ public class Controller {
 		 **/
 
 		if (fig.getWeglaenge() > MAXGEFAHRENEWEGLAENGE) {
-			int c = fig.getWeglaenge();
-			switch (c) {
-			case ERSTESZIELFELD:
-				pg.storeFigure(fig, 0);
-				pg.getPlayer(fig.getPlayerID()).removeFigureFromActiveSoldiers(fig);
-				pg.setFigureOnPosition(null, oldPos);
-				return;
-			case ZWEITESZIELFELD:
-				pg.storeFigure(fig, 1);
-				pg.getPlayer(fig.getPlayerID()).removeFigureFromActiveSoldiers(fig);
-				pg.setFigureOnPosition(null, oldPos);
-				return;
-			case DRITTESTZIELFELD:
-				pg.storeFigure(fig, 2);
-				pg.getPlayer(fig.getPlayerID()).removeFigureFromActiveSoldiers(fig);
-				pg.setFigureOnPosition(null, oldPos);
-				return;
-			case VIERTESZIELFELD:
-				pg.storeFigure(fig, 3);
-				pg.getPlayer(fig.getPlayerID()).removeFigureFromActiveSoldiers(fig);
-				pg.setFigureOnPosition(null, oldPos);
-				return;
-			default:
-				fig.setFigurePos(oldPos);
-				return;
-			}
-
+			storeFigure(fig,oldPos);
 		}
 		
 		if( newPos > MAXGEFAHRENEWEGLAENGE){
@@ -182,10 +192,10 @@ public class Controller {
 			 * 
 			 */
 			
-			if (roll == GEWUERFELTESECHS && pg.getPlayer(i).figureStackEmpty() == false) {
+			if (roll == GEWUERFELTESECHS && !pg.getPlayer(i).figureStackEmpty()) {
 				System.out.println("Spieler " + i + " kommt raus!");
 				comingOut(i);
-			} else if (roll == GEWUERFELTESECHS && pg.getPlayer(i).figureStackEmpty() == true) {
+			} else if (roll == GEWUERFELTESECHS && pg.getPlayer(i).figureStackEmpty()) {
 				moveForward(pickFigure(i), roll);
 			} else if (roll != GEWUERFELTESECHS) {
 				moveForward(pickFigure(i), roll);
@@ -195,10 +205,10 @@ public class Controller {
 				i = 0;
 			}
 			TextGUI.printArrays(pg.getFieldArray());
-			TextGUI.printArrays(pg.getTargetArray(0));
-			TextGUI.printArrays(pg.getTargetArray(1));
-			TextGUI.printArrays(pg.getTargetArray(2));
-			TextGUI.printArrays(pg.getTargetArray(3));
+			TextGUI.printArrays(pg.getTargetArray(NULL));
+			TextGUI.printArrays(pg.getTargetArray(EINS));
+			TextGUI.printArrays(pg.getTargetArray(ZWEI));
+			TextGUI.printArrays(pg.getTargetArray(DREI));
 		}
 	}
 

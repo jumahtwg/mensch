@@ -2,7 +2,7 @@ package view;
 
 import model.Figure;
 
-public class TextGUI {
+public final class TextGUI {
 	private TextGUI() {}
 	
 	private static final int EINS = 1;
