@@ -134,8 +134,7 @@ public class Controller extends Observable {
 		while(!pg.getPlayer(playerID).isFigureAvailable(tmp))
 			tmp = in.nextInt();
 	
-		return pg.getPlayer(playerID).getFigure(tmp);
-			
+		return pg.getPlayer(playerID).getFigure(tmp);	
 		
 	}
 
