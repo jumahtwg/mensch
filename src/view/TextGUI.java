@@ -2,13 +2,17 @@ package view;
 
 import java.util.Scanner;
 
+import org.apache.log4j.Logger;
+
 import observer.IObserver;
 
 import model.Figure;
 import model.Player;
 
 public class TextGUI {
+	private static final Logger logger = Logger.getLogger("view.TextGUI");
 
+	
 	public static void printArrayInformation(Figure array[], int i) {
 		switch(i){
 		case 1:
@@ -118,10 +122,10 @@ public class TextGUI {
 		
 	}
 	public static void println(String sg){
-		System.out.println(sg);
+		logger.info(sg + "\n");
 	}
 	public static void print(String sg){
-		System.out.print(sg);
+		logger.info(sg);
 	}
 	
 	public void update() {
