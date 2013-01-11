@@ -190,15 +190,6 @@ public class Controller extends Observable {
 			}
 			notifyObserversArray();
 			
-//			TextGUI.printArrays(pg.getFieldArray());
-//			TextGUI.printArrays(pg.getTargetArray(0));
-//			TextGUI.printArrays(pg.getTargetArray(1));
-//			TextGUI.printArrays(pg.getTargetArray(2));
-//			TextGUI.printArrays(pg.getTargetArray(3));
-//			for(int j = 0; j < pl; j++){
-//				System.out.println("Ziel-Box von Spieler " + pg.getPlayer(j).getPlayerID());
-//				TextGUI.printArrays(pg.getTargetArray(i));
-//			}
 		}
 	}
 
