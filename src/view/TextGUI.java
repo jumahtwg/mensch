@@ -1,13 +1,8 @@
 package view;
 
-import java.util.Scanner;
+import model.Figure;
 
 import org.apache.log4j.Logger;
-
-import observer.IObserver;
-
-import model.Figure;
-import model.Player;
 
 public class TextGUI {
 	private static final Logger logger = Logger.getLogger("view.TextGUI");
