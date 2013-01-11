@@ -32,16 +32,19 @@ public class TextGUI implements IObserver {
 	}
 	
 	public void printArrays(Figure array[]) {
-
+		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < array.length; i++) {
 			if (array[i] != null) {
-				print("[" + array[i].hasPlayer().getPlayerID()
-						+ ":" + array[i].getFigureID() + "]");
+				sb.append("[");
+				sb.append(array[i].hasPlayer().getPlayerID());
+				sb.append(":");
+				sb.append(array[i].getFigureID());
+				sb.append("]");
 			}else
-				print("[ ]");
+				sb.append("[ ]");
 		}
-		println("");
-		println("");
+		sb.append("\n");
+		print(sb.toString());
 	}
 	
 	public void printActiveFigures(Figure array[]){
@@ -127,7 +130,7 @@ public class TextGUI implements IObserver {
 		
 	}
 	public void println(String sg){
-		logger.info(sg + "\n");
+		logger.info(sg );
 	}
 	public void print(String sg){
 		logger.info(sg);
