@@ -127,7 +127,7 @@ public class Controller extends Observable {
 
 	public Figure pickFigure(int playerID) {
 		int tmp;
-		notifyObserversPrint1();
+		notifyObserversPrintActiveFigures();
 //		TextGUI.printActiveFigures(pg.getPlayer(playerID).getPgFigureArray());
 		Scanner in = new Scanner(System.in);
 		tmp = in.nextInt();
@@ -188,11 +188,13 @@ public class Controller extends Observable {
 			if (i == pl) {
 				i = 0;
 			}
-			TextGUI.printArrays(pg.getFieldArray());
-			TextGUI.printArrays(pg.getTargetArray(0));
-			TextGUI.printArrays(pg.getTargetArray(1));
-			TextGUI.printArrays(pg.getTargetArray(2));
-			TextGUI.printArrays(pg.getTargetArray(3));
+			notifyObserversArray();
+			
+//			TextGUI.printArrays(pg.getFieldArray());
+//			TextGUI.printArrays(pg.getTargetArray(0));
+//			TextGUI.printArrays(pg.getTargetArray(1));
+//			TextGUI.printArrays(pg.getTargetArray(2));
+//			TextGUI.printArrays(pg.getTargetArray(3));
 //			for(int j = 0; j < pl; j++){
 //				System.out.println("Ziel-Box von Spieler " + pg.getPlayer(j).getPlayerID());
 //				TextGUI.printArrays(pg.getTargetArray(i));
@@ -213,5 +215,10 @@ public class Controller extends Observable {
 	public int getRoll() {
 		return roll;
 	}
-
+	public Figure[] getPlayerFigures(){
+		return pg.getPlayer(activePlayerID).getPgFigureArray();
+	}
+	public Figure[] getPgArray(){
+		return pg.getFieldArray();
+	}
 }

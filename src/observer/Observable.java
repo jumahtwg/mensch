@@ -30,4 +30,12 @@ public class Observable{
 			observer.updatePrintDice();
 		}
 	}
+	
+	public void notifyObserversPrintActiveFigures(){
+		for(Iterator<IObserver> iter = subscribers.iterator(); iter.hasNext();){
+			IObserver observer = iter.next();
+			observer.updatePrintFigures();
+	}
+
+}
 }

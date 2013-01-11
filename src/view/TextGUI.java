@@ -139,7 +139,10 @@ public class TextGUI implements IObserver {
 
 
 	public void updatePrintArray() {
-		// TODO Auto-generated method stub
-		
+		printArrays(controller.getPgArray());
+	}
+	
+	public void updatePrintFigures(){
+		printActiveFigures(controller.getPlayerFigures());
 	}
 }

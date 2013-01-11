@@ -14,11 +14,11 @@ public class Application {
     	
     	   	
     	Controller game = new Controller();
-    	game.init();
+
     	
     	TextGUI gui = new TextGUI(game);
     	game.addObserver(gui);
-    
+    	game.init();
 	
     }
 
