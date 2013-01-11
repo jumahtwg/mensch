@@ -2,13 +2,24 @@ package view;
 
 import model.Figure;
 
+import observer.IObserver;
+
 import org.apache.log4j.Logger;
 
-public class TextGUI {
-	private static final Logger logger = Logger.getLogger("view.TextGUI");
+import controller.Controller;
 
+public class TextGUI implements IObserver {
+	private Logger logger = Logger.getLogger("view.TextGUI");
+
+	private Controller controller;
 	
-	public static void printArrayInformation(Figure array[], int i) {
+	public TextGUI(Controller controller) {
+		super();
+		this.controller = controller;
+	}
+	
+	
+	public void printArrayInformation(Figure array[], int i) {
 		switch(i){
 		case 1:
 			println("Spielfeld Array: ");
@@ -20,7 +31,7 @@ public class TextGUI {
 		}
 	}
 	
-	public static void printArrays(Figure array[]) {
+	public void printArrays(Figure array[]) {
 
 		for (int i = 0; i < array.length; i++) {
 			if (array[i] != null) {
@@ -33,10 +44,9 @@ public class TextGUI {
 		println("");
 	}
 	
-	public static void printActiveFigures(Figure array[]){
+	public void printActiveFigures(Figure array[]){
 		for (int i = 0; i < array.length; i++) {
-			if (array[i] == null) {
-			}else{
+			if (array[i] != null) {			
 				printFigureStatus(array[i]);
 			}
 		}
@@ -53,7 +63,7 @@ public class TextGUI {
 //				
 //	}
 	
-	public static void printFigureStatus(Figure fig){
+	public void printFigureStatus(Figure fig){
 		println("-----------------------------------------------");
 		println("PlayerID: " + fig.getPlayerID());
 		println("FigurID: " + fig.getFigureID());
@@ -62,12 +72,12 @@ public class TextGUI {
 		println("-----------------------------------------------");
 	}
 	
-	public static void printMoveForward(Figure fig, int roll ){
+	public void printMoveForward(Figure fig, int roll ){
 		println("Spieler " + fig.getPlayerID() + ":Figur " + fig.getFigureID() + "wurde ausgewählt");
 		println("    Bewegt sich um " + roll + " Schritte nach vorne");
 	}
 	
-	public static void printDice(int playerID, int value){
+	public void printDice(int playerID, int value){
 		println("Player " + playerID + " würfel: ");
 		switch (value){
 		case 1:
@@ -116,14 +126,19 @@ public class TextGUI {
 		}
 		
 	}
-	public static void println(String sg){
+	public void println(String sg){
 		logger.info(sg + "\n");
 	}
-	public static void print(String sg){
+	public void print(String sg){
 		logger.info(sg);
 	}
 	
-	public void update() {
+	public void updatePrintDice() {		
+		printDice(controller.getActivePlayer().getPlayerID(), controller.getRoll());
+	}
+
+
+	public void updatePrintArray() {
 		// TODO Auto-generated method stub
 		
 	}

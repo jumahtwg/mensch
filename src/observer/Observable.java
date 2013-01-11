@@ -17,10 +17,17 @@ public class Observable{
 		subscribers.removeAllElements();
 	}
 	
-	public void notifyObservers(){
+	public void notifyObserversArray(){
 		for(Iterator<IObserver> iter = subscribers.iterator(); iter.hasNext();){
 			IObserver observer = iter.next();
-			observer.update();
+			observer.updatePrintArray();
+		}
+	}
+	
+	public void notifyObserversPrintDice() {
+		for(Iterator<IObserver> iter = subscribers.iterator(); iter.hasNext();){
+			IObserver observer = iter.next();
+			observer.updatePrintDice();
 		}
 	}
 }

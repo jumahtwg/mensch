@@ -1,18 +1,19 @@
 package controller;
 
+import java.util.List;
 import java.util.Scanner;
-
-import observer.IObserver;
-import observer.Observable;
 
 import model.Figure;
 import model.Player;
 import model.Playground;
+import observer.Observable;
 import view.TextGUI;
 
-public class Controller {
+public class Controller extends Observable {
 
-	Playground pg;
+	private Playground pg;
+	private int activePlayerID;
+	private int roll;
 
 	public Controller() {
 		this.pg = new Playground();
@@ -126,7 +127,8 @@ public class Controller {
 
 	public Figure pickFigure(int playerID) {
 		int tmp;
-		TextGUI.printActiveFigures(pg.getPlayer(playerID).getPgFigureArray());
+		notifyObserversPrint1();
+//		TextGUI.printActiveFigures(pg.getPlayer(playerID).getPgFigureArray());
 		Scanner in = new Scanner(System.in);
 		tmp = in.nextInt();
 		while(!pg.getPlayer(playerID).isFigureAvailable(tmp))
@@ -140,10 +142,11 @@ public class Controller {
 	public void runningGame(int pl) {
 		int i = 0;
 		while (i < pl) {
-			int roll = 0;
-			
+			activePlayerID = i;
+			roll = 0;			
 			roll = pg.getPlayer(i).rolling();
-			TextGUI.printDice(pg.getPlayer(i).getPlayerID(), roll);
+			notifyObserversPrintDice();
+		
 			/**
 			 * wenn erster Wurf keine 6 und Spieler hat noch alle Figuren auf
 			 * Stack, w�rfle 2 weitere Male
@@ -154,8 +157,7 @@ public class Controller {
 				for (int k = 0; k < 2 && roll != 6; k++) {
 					roll = pg.getPlayer(i).rolling();
 					
-					TextGUI.printDice(pg.getPlayer(i).getPlayerID(), roll);
-
+					notifyObserversPrintDice();
 					/** wenn Wurf immernoch keine 6 , n�chster Spieler **/
 
 				}
@@ -201,6 +203,15 @@ public class Controller {
 	public void update() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	
+	public Player getActivePlayer() {
+		return pg.getPlayer(activePlayerID);
+	}
+	
+	public int getRoll() {
+		return roll;
 	}
 
 }
