@@ -9,12 +9,12 @@ import org.apache.log4j.*;
 import controller.Controller;
 
 public class TextGUI implements IObserver {
-	private final int WUERFELEINS = 1;
-	private final int WUERFELZWEI = 2;
-	private final int WUERFELDREI = 3;
-	private final int WUERFELVIER = 4;
-	private final int WUERFELFUENF = 5;
-	private final int WUERFELSECHS = 6;
+	private final int wuerfelEINS = 1;
+	private final int wuerfelZWEI = 2;
+	private final int wuerfelDREI = 3;
+	private final int wuerfelVIER = 4;
+	private final int wuerfelFUENF = 5;
+	private final int wuerfelSECHS = 6;
 	private final String KANTE = " ------- ";
 	
 	private Logger logger = Logger.getLogger("view.TextGUI");
@@ -48,8 +48,9 @@ public class TextGUI implements IObserver {
 				sb.append(":");
 				sb.append(array[i].getFigureID());
 				sb.append("]");
-			}else
+			}else{
 				sb.append("[ ]");
+			}
 		}
 		sb.append("\n");
 		print(sb.toString());
@@ -91,7 +92,7 @@ public class TextGUI implements IObserver {
 	public void printDice(int playerID, int value){
 		println("Player " + playerID + " Wuerfel: ");
 		switch (value){
-		case WUERFELEINS:
+		case wuerfelEINS:
 			println(KANTE);
 			println("|       |");
 			println("|   O   |");
@@ -99,35 +100,35 @@ public class TextGUI implements IObserver {
 			println(KANTE);
 			break;
 
-		case WUERFELZWEI:
+		case wuerfelZWEI:
 			println(KANTE);
 			println("|     O |");
 			println("|       |");
 			println("| O     |");
 			println(KANTE);
 			break;
-		case WUERFELDREI:
+		case wuerfelDREI:
 			println(KANTE);
 			println("|     O |");
 			println("|   O   |");
 			println("| O     |");
 			println(KANTE);
 			break;
-		case WUERFELVIER:
+		case wuerfelVIER:
 			println(KANTE);
 			println("| O   O |");
 			println("|       |");
 			println("| O   O |");
 			println(KANTE);
 			break;
-		case WUERFELFUENF:
+		case wuerfelFUENF:
 			println(KANTE);
 			println("| O   O |");
 			println("|   O   |");
 			println("| O   O |");
 			println(" ------- ");
 			break;
-		case WUERFELSECHS:
+		case wuerfelSECHS:
 			println(KANTE);
 			println("| O   O |");
 			println("| O   O |");

@@ -9,7 +9,7 @@ import javax.swing.JComponent;
 	public class PixelComponent extends JComponent
 	{
 	    private Color color;
-	    int w,h,x,y;
+	    private int w,h,x,y;
 	    public PixelComponent(Color color,int x, int y, int w, int h)
 	    {
 	        super();
