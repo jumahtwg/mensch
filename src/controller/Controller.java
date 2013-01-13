@@ -14,6 +14,18 @@ public class Controller extends Observable {
 	private Playground pg;
 	private int activePlayerID;
 	private int roll;
+	private static final int MAXSPIELER = 4;
+	private static final int MAXGEFAHRENEWEGLAENGE = 39;
+	private static final int GEWUERFELTESECHS = 6;
+	private static final int VORHANDENEFIGUREN = 4;
+	private static final int ERSTESZIELFELD = 40;
+	private static final int ZWEITESZIELFELD = 41;
+	private static final int DRITTESZIELFELD = 42;
+	private static final int VIERTESZIELFELD = 43;
+	private static final int NULL = 0;
+	private static final int EINS = 1;
+	private static final int ZWEI = 2;
+	private static final int DREI = 3;
 
 	public Controller() {
 		this.pg = new Playground();
@@ -26,7 +38,7 @@ public class Controller extends Observable {
 		int pl = in.nextInt();
 		System.out.println("pl ist " + pl);
 		
-		while (pl > 4 ) {
+		while (pl > MAXSPIELER ) {
 			System.out.println("Maximale Spieleranzahl: 4, bitte eingeben.");
 			pl = in.nextInt();
 		}
@@ -61,30 +73,30 @@ public class Controller extends Observable {
 		fig.setWeglaenge(positions);
 				
 		/**
-		 * wenn Figur mit aktuellen Wurf über eine Runde gelaufen ist -> store
+		 * wenn Figur mit aktuellen Wurf ueber eine Runde gelaufen ist -> store
 		 * into Array
 		 **/
 		
-		if (fig.getWeglaenge() > 39) {
+		if (fig.getWeglaenge() > MAXGEFAHRENEWEGLAENGE) {
 			int c = fig.getWeglaenge();
 			switch (c) {
-			case 40:
-				pg.storeFigure(fig, 0);
+			case ERSTESZIELFELD:
+				pg.storeFigure(fig, NULL);
 				pg.getPlayer(fig.getPlayerID()).removeFigureFromActiveSoldiers(fig);
 				pg.setFigureOnPosition(null, oldPos);
 				return;
-			case 41:
-				pg.storeFigure(fig, 1);
+			case ZWEITESZIELFELD:
+				pg.storeFigure(fig, EINS);
 				pg.getPlayer(fig.getPlayerID()).removeFigureFromActiveSoldiers(fig);
 				pg.setFigureOnPosition(null, oldPos);
 				return;
-			case 42:
-				pg.storeFigure(fig, 2);
+			case DRITTESZIELFELD:
+				pg.storeFigure(fig, ZWEI);
 				pg.getPlayer(fig.getPlayerID()).removeFigureFromActiveSoldiers(fig);
 				pg.setFigureOnPosition(null, oldPos);
 				return;
-			case 43:
-				pg.storeFigure(fig, 3);
+			case VIERTESZIELFELD:
+				pg.storeFigure(fig, DREI);
 				pg.getPlayer(fig.getPlayerID()).removeFigureFromActiveSoldiers(fig);
 				pg.setFigureOnPosition(null, oldPos);
 				return;
@@ -95,8 +107,8 @@ public class Controller extends Observable {
 
 		}
 		
-		if( newPos > 39){
-			newPos = newPos % 39;
+		if( newPos > MAXGEFAHRENEWEGLAENGE){
+			newPos = newPos % MAXGEFAHRENEWEGLAENGE;
 			fig.setFigurePos(newPos);
 		}else
 			fig.setFigurePos(newPos);
@@ -112,7 +124,7 @@ public class Controller extends Observable {
 		} else if (pg.isOccupied(newPos)
 				&& pg.getFigureOnPosition(newPos).hasPlayer() == fig
 						.hasPlayer()) {
-			/** wï¿½hle andere Figur zum Laufen **/
+			/** waehle andere Figur zum Laufen **/
 			fig = pickFigure(fig.hasPlayer().getPlayerID());
 			oldPos = fig.getFigurePos();
 			newPos = fig.getFigurePos() + positions;
@@ -147,20 +159,20 @@ public class Controller extends Observable {
 			notifyObserversPrintDice();
 		
 			/**
-			 * wenn erster Wurf keine 6 und Spieler hat noch alle Figuren auf
-			 * Stack, wï¿½rfle 2 weitere Male
+			 * wenn erster Wurf keine 'GEWUERFELTESECHS' und Spieler hat noch alle Figuren auf
+			 * Stack, wuerfle 2 weitere Male
 			 **/
-			if ((roll != 6 && pg.getPlayer(i).getStackSize() == 4) 
-					|| (roll != 6 && pg.getPlayer(i).getStackSize() != 4 
+			if ((roll != GEWUERFELTESECHS && pg.getPlayer(i).getStackSize() == VORHANDENEFIGUREN) 
+					|| (roll != GEWUERFELTESECHS && pg.getPlayer(i).getStackSize() != VORHANDENEFIGUREN 
 					&& pg.getPlayer(i).figureArrayEmpty() )) {
-				for (int k = 0; k < 2 && roll != 6; k++) {
+				for (int k = 0; k < 2 && roll != GEWUERFELTESECHS; k++) {
 					roll = pg.getPlayer(i).rolling();
 					
 					notifyObserversPrintDice();
-					/** wenn Wurf immernoch keine 6 , nï¿½chster Spieler **/
+					/** wenn Wurf immernoch keine 'GEWUERFELTESECHS' , naechster Spieler **/
 
 				}
-				if (roll != 6) {
+				if (roll != GEWUERFELTESECHS) {
 					i++;
 					if (i == pl) {
 						i = 0;
@@ -171,17 +183,17 @@ public class Controller extends Observable {
 			
 
 			/**
-			 * wenn würfel 6 zeigt UND spieler noch figuren auf Stack hat UND
+			 * wenn wuerfel 'GEWUERFELTESECHS' zeigt UND spieler noch figuren auf Stack hat UND
 			 * sein Startfeld NICHT von seiner eigenen Figur besetzt ist
 			 * 
 			 */
 			
-			if (roll == 6 && pg.getPlayer(i).figureStackEmpty() == false) {
+			if (roll == GEWUERFELTESECHS && pg.getPlayer(i).figureStackEmpty() == false) {
 				System.out.println("Spieler " + i + " kommt raus!");
 				comingOut(i);
-			} else if (roll == 6 && pg.getPlayer(i).figureStackEmpty() == true) {
+			} else if (roll == GEWUERFELTESECHS && pg.getPlayer(i).figureStackEmpty() == true) {
 				moveForward(pickFigure(i), roll);
-			} else if (roll != 6)
+			} else if (roll != GEWUERFELTESECHS)
 				moveForward(pickFigure(i), roll);
 			i++;
 			if (i == pl) {

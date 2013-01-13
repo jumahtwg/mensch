@@ -8,6 +8,8 @@ public class Playground {
 
 	private int anzMit;
 	private Figure fieldArray[];
+	private static final int FELDLAENGE = 40;
+	private static final int ZIELFELDLAENGE = 4;
 	private List<Coordinate> fieldCoordinatelist = new ArrayList<Coordinate>();
 	
 	private Figure target1[];
@@ -36,11 +38,11 @@ public class Playground {
 
 	}
 	public Playground() {
-		this.fieldArray = new Figure[40];
-		this.target1 = new Figure[4];
-		this.target2 = new Figure[4];
-		this.target3 = new Figure[4];
-		this.target4 = new Figure[4];
+		this.fieldArray = new Figure[FELDLAENGE];
+		this.target1 = new Figure[ZIELFELDLAENGE];
+		this.target2 = new Figure[ZIELFELDLAENGE];
+		this.target3 = new Figure[ZIELFELDLAENGE];
+		this.target4 = new Figure[ZIELFELDLAENGE];
 		this.anzMit = 0;
 	}
 
@@ -121,16 +123,16 @@ public class Playground {
 	public int[] getTargetCoordnate(int playerID,int index){
 		int[] array = new int[2];
 		switch(playerID){
-		case 0:
+		case Player.SPIELER1:
 			array[0]= target1Coordinatelist.get(index).x;
 			array[1]= target1Coordinatelist.get(index).y;
-		case 1:
+		case Player.SPIELER2:
 			array[0]= target2Coordinatelist.get(index).x;
 			array[1]= target2Coordinatelist.get(index).y;
-		case 2:
+		case Player.SPIELER3:
 			array[0]= target3Coordinatelist.get(index).x;
 			array[1]= target3Coordinatelist.get(index).y;
-		case 3:
+		case Player.SPIELER4:
 			array[0]= target4Coordinatelist.get(index).x;
 			array[1]= target4Coordinatelist.get(index).y;
 		}
@@ -177,13 +179,13 @@ public class Playground {
 	}
 	public Figure[] getTargetArray(int playerID){
 		switch(playerID){
-		case 0:
+		case Player.SPIELER1:
 			return target1;
-		case 1:
+		case Player.SPIELER2:
 			return target2;
-		case 2:
+		case Player.SPIELER3:
 			return target3;
-		case 3:
+		case Player.SPIELER4:
 			return target4;
 		default:
 			return null;
@@ -194,16 +196,16 @@ public class Playground {
 		int c = fig.getPlayerID();
 		switch(c)
 		{
-		case 0:
+		case Player.SPIELER1:
 			target1[storagePoint] = fig;
 			break;
-		case 1:
+		case Player.SPIELER2:
 			target2[storagePoint] = fig;
 			break;
-		case 2:
+		case Player.SPIELER3:
 			target3[storagePoint] = fig;
 			break;
-		case 3:
+		case Player.SPIELER4:
 			target4[storagePoint] = fig;
 			break;
 		}

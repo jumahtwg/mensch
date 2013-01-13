@@ -11,29 +11,39 @@ public class Player {
 	private Dice dice;
 	private int startField;
 	private int endField;
+	private static final int SPIELFIGUREN = 4;
+	private static final int MAXSPIELFIGUREN = 4;
+	private static final int STARTFELDSPIELER1 = 0;
+	private static final int STARTFELDSPIELER2 = 10;
+	private static final int STARTFELDSPIELER3 = 20;
+	private static final int STARTFELDSPIELER4 = 30;
+	public static final int SPIELER1 = 0;
+	public static final int SPIELER2 = 1;
+	public static final int SPIELER3 = 2;
+	public static final int SPIELER4 = 3;
 
 	private Deque<Figure> startStack = new ArrayDeque<Figure>();
-	private Figure[] pgFigureArray = new Figure[4];
+	private Figure[] pgFigureArray = new Figure[SPIELFIGUREN];
 
 	public Player(int playerID) {
 		this.playerID = playerID;
-		for (int i = 3; i >= 0; i--) {
+		for (int i = SPIELFIGUREN-1; i >= 0; i--) {
 			startStack.push(new Figure(i, this));
 		}
 		this.dice = new Dice();
 
 		switch (playerID) {
-		case 0:
-			this.startField = 0;
+		case SPIELER1:
+			this.startField = STARTFELDSPIELER1;
 			break;
-		case 1:
-			this.startField = 10;
+		case SPIELER2:
+			this.startField = STARTFELDSPIELER2;
 			break;
-		case 2:
-			this.startField = 20;
+		case SPIELER3:
+			this.startField = STARTFELDSPIELER3;
 			break;
-		case 3:
-			this.startField = 30;
+		case SPIELER4:
+			this.startField = STARTFELDSPIELER4;
 			break;
 		default:
 		}
@@ -57,7 +67,7 @@ public class Player {
 	}
 
 	public void pushFigure(Figure figure) {
-		if (startStack.size() == 4) {
+		if (startStack.size() == MAXSPIELFIGUREN) {
 			System.out
 					.println("Alle Figuren des Spielers sind bereits im Startfeld");
 			return;
@@ -117,7 +127,7 @@ public class Player {
 		return pgFigureArray;
 	}
 	public boolean isFigureAvailable(int figID){
-		if(figID > 3 || pgFigureArray[figID] == null){
+		if(figID > SPIELFIGUREN-1 || pgFigureArray[figID] == null){
 			return false;
 		}else{
 			return true;
