@@ -9,12 +9,12 @@ import org.apache.log4j.*;
 import controller.Controller;
 
 public class TextGUI implements IObserver {
-	private final int WUERFEL1 = 1;
-	private final int WUERFEL2 = 2;
-	private final int WUERFEL3 = 3;
-	private final int WUERFEL4 = 4;
-	private final int WUERFEL5 = 5;
-	private final int WUERFEL6 = 6;
+	private final int WUERFELEINS = 1;
+	private final int WUERFELZWEI = 2;
+	private final int WUERFELDREI = 3;
+	private final int WUERFELVIER = 4;
+	private final int WUERFELFUENF = 5;
+	private final int WUERFELSECHS = 6;
 	private final String KANTE = " ------- ";
 	
 	private Logger logger = Logger.getLogger("view.TextGUI");
@@ -91,48 +91,48 @@ public class TextGUI implements IObserver {
 	public void printDice(int playerID, int value){
 		println("Player " + playerID + " Wuerfel: ");
 		switch (value){
-		case WUERFEL1:
-			println(" ------- ");
+		case WUERFELEINS:
+			println(KANTE);
 			println("|       |");
 			println("|   O   |");
 			println("|       |"); 
-			println(" ------- ");
+			println(KANTE);
 			break;
 
-		case WUERFEL2:
-			println(" ------- ");
+		case WUERFELZWEI:
+			println(KANTE);
 			println("|     O |");
 			println("|       |");
 			println("| O     |");
-			println(" ------- ");
+			println(KANTE);
 			break;
-		case WUERFEL3:
-			println(" ------- ");
+		case WUERFELDREI:
+			println(KANTE);
 			println("|     O |");
 			println("|   O   |");
 			println("| O     |");
-			println(" ------- ");
+			println(KANTE);
 			break;
-		case WUERFEL4:
-			println(" ------- ");
+		case WUERFELVIER:
+			println(KANTE);
 			println("| O   O |");
 			println("|       |");
 			println("| O   O |");
-			println(" ------- ");
+			println(KANTE);
 			break;
-		case WUERFEL5:
-			println(" ------- ");
+		case WUERFELFUENF:
+			println(KANTE);
 			println("| O   O |");
 			println("|   O   |");
 			println("| O   O |");
 			println(" ------- ");
 			break;
-		case WUERFEL6:
-			println(" ------- ");
+		case WUERFELSECHS:
+			println(KANTE);
 			println("| O   O |");
 			println("| O   O |");
 			println("| O   O |");
-			println(" ------- ");
+			println(KANTE);
 			break;
 		}
 		
