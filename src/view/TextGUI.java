@@ -92,47 +92,47 @@ public class TextGUI implements IObserver {
 		println("Player " + playerID + " Wuerfel: ");
 		switch (value){
 		case WUERFEL1:
-			println(KANTE);
+			println(" ------- ");
 			println("|       |");
 			println("|   O   |");
 			println("|       |"); 
-			println(KANTE);
+			println(" ------- ");
 			break;
 
 		case WUERFEL2:
-			println(KANTE);
+			println(" ------- ");
 			println("|     O |");
 			println("|       |");
 			println("| O     |");
-			println(KANTE);
+			println(" ------- ");
 			break;
 		case WUERFEL3:
-			println(KANTE);
+			println(" ------- ");
 			println("|     O |");
 			println("|   O   |");
 			println("| O     |");
-			println(KANTE);
+			println(" ------- ");
 			break;
 		case WUERFEL4:
-			println(KANTE);
+			println(" ------- ");
 			println("| O   O |");
 			println("|       |");
 			println("| O   O |");
-			println(KANTE);
+			println(" ------- ");
 			break;
 		case WUERFEL5:
-			println(KANTE);
+			println(" ------- ");
 			println("| O   O |");
 			println("|   O   |");
 			println("| O   O |");
-			println(KANTE);
+			println(" ------- ");
 			break;
 		case WUERFEL6:
-			println(KANTE);
+			println(" ------- ");
 			println("| O   O |");
 			println("| O   O |");
 			println("| O   O |");
-			println(KANTE);
+			println(" ------- ");
 			break;
 		}
 		
