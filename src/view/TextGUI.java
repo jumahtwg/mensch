@@ -9,6 +9,14 @@ import org.apache.log4j.Logger;
 import controller.Controller;
 
 public class TextGUI implements IObserver {
+	private final int WUERFEL1 = 1;
+	private final int WUERFEL2 = 2;
+	private final int WUERFEL3 = 3;
+	private final int WUERFEL4 = 4;
+	private final int WUERFEL5 = 5;
+	private final int WUERFEL6 = 6;
+	private final String KANTE = " ------- ";
+	
 	private Logger logger = Logger.getLogger("view.TextGUI");
 
 	private Controller controller;
@@ -76,55 +84,55 @@ public class TextGUI implements IObserver {
 	}
 	
 	public void printMoveForward(Figure fig, int roll ){
-		println("Spieler " + fig.getPlayerID() + ":Figur " + fig.getFigureID() + "wurde ausgewählt");
+		println("Spieler " + fig.getPlayerID() + ":Figur " + fig.getFigureID() + "wurde ausgewaehlt");
 		println("    Bewegt sich um " + roll + " Schritte nach vorne");
 	}
 	
 	public void printDice(int playerID, int value){
-		println("Player " + playerID + " würfel: ");
+		println("Player " + playerID + " Wuerfel: ");
 		switch (value){
-		case 1:
-			println(" -------");
+		case WUERFEL1:
+			println(KANTE);
 			println("|       |");
 			println("|   O   |");
 			println("|       |"); 
-			println(" ------- ");
+			println(KANTE);
 			break;
 
-		case 2:
-			println(" -------");
+		case WUERFEL2:
+			println(KANTE);
 			println("|     O |");
 			println("|       |");
 			println("| O     |");
-			println(" ------- ");
+			println(KANTE);
 			break;
-		case 3:
-			println(" -------");
+		case WUERFEL3:
+			println(KANTE);
 			println("|     O |");
 			println("|   O   |");
 			println("| O     |");
-			println(" ------- ");
+			println(KANTE);
 			break;
-		case 4:
-			println(" -------");
+		case WUERFEL4:
+			println(KANTE);
 			println("| O   O |");
 			println("|       |");
 			println("| O   O |");
-			println(" ------- ");
+			println(KANTE);
 			break;
-		case 5:
-			println(" -------");
+		case WUERFEL5:
+			println(KANTE);
 			println("| O   O |");
 			println("|   O   |");
 			println("| O   O |");
-			println(" ------- ");
+			println(KANTE);
 			break;
-		case 6:
-			println(" -------");
+		case WUERFEL6:
+			println(KANTE);
 			println("| O   O |");
 			println("| O   O |");
 			println("| O   O |");
-			println(" ------- ");
+			println(KANTE);
 			break;
 		}
 		

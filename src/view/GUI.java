@@ -15,7 +15,7 @@ public class GUI extends JFrame{
     
     private JButton wuerfel;
     
-    ImageIcon background;
+    private ImageIcon background;
     private JPanel panel;
     private JFrame frame;
     
@@ -30,7 +30,7 @@ public class GUI extends JFrame{
     }
     
     public void spielbrettAnzeigen(){
-    	frame = new JFrame("Mensch ärger dich nicht");
+    	frame = new JFrame("Mensch aerger dich nicht");
     	frame.setMinimumSize(new Dimension(650, 800));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
@@ -45,8 +45,8 @@ public class GUI extends JFrame{
         panel.setLayout(null);
         panel.add(label);
         
-        //Würfelbutton
-        wuerfel = new JButton("Würfel");
+        //Wuerfelbutton
+        wuerfel = new JButton("Wuerfel");
         wuerfel.addActionListener(new WuerfelListener());
         wuerfel.setBounds(0, 700, 75, 75);
         panel.add(wuerfel);

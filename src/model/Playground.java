@@ -10,6 +10,7 @@ public class Playground {
 	private Figure fieldArray[];
 	private static final int FELDLAENGE = 40;
 	private static final int ZIELFELDLAENGE = 4;
+
 	private List<Coordinate> fieldCoordinatelist = new ArrayList<Coordinate>();
 	
 	private Figure target1[];
@@ -25,15 +26,15 @@ public class Playground {
 	private List<Coordinate> target4Coordinatelist = new ArrayList<Coordinate>();
 
 	
-	private LinkedList<Player> players = new LinkedList<Player>();
+	private List<Player> players = new LinkedList<Player>();
 	
 	
 	private class Coordinate{
-		int x,y;
+		private int x,y;
 		
 		public Coordinate(int x, int y){
-			x = x;
-			y = y;
+			this.x = x;
+			this.y = y;
 		}
 
 	}
@@ -159,8 +160,9 @@ public class Playground {
 	    return this.fieldArray[position];
 	}
 	public void setFigureOnPosition(Figure fig, int position){
-		if (fig != null)
+		if (fig != null) {
 			fig.setFigurePos(position);
+		}
 	    this.fieldArray[position] = fig;
 	}
 	

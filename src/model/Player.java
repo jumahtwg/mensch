@@ -10,7 +10,6 @@ public class Player {
 	private final int playerID;
 	private Dice dice;
 	private int startField;
-	private int endField;
 	private static final int SPIELFIGUREN = 4;
 	private static final int MAXSPIELFIGUREN = 4;
 	private static final int STARTFELDSPIELER1 = 0;
@@ -47,7 +46,7 @@ public class Player {
 			break;
 		default:
 		}
-		this.endField = startField - 1;
+		
 	}
 
 	public int getPlayerID() {
@@ -87,10 +86,11 @@ public class Player {
 	
 	public boolean figureArrayEmpty(){
 		for(int i = 0; i< pgFigureArray.length; i++){
-			if(pgFigureArray[i] == null)
+			if(pgFigureArray[i] == null) {
 				continue;
-			else
+			} else {
 				return false;
+			}
 		}
 		return true;
 	}

@@ -110,8 +110,9 @@ public class Controller extends Observable {
 		if( newPos > MAXGEFAHRENEWEGLAENGE){
 			newPos = newPos % MAXGEFAHRENEWEGLAENGE;
 			fig.setFigurePos(newPos);
-		}else
+		} else {
 			fig.setFigurePos(newPos);
+		}
 
 		/** wenn neues Feld besetzt und Figur auf Feld ist NICHT die eigene **/
 		if (pg.isOccupied(newPos)
@@ -140,12 +141,11 @@ public class Controller extends Observable {
 	public Figure pickFigure(int playerID) {
 		int tmp;
 		notifyObserversPrintActiveFigures();
-//		TextGUI.printActiveFigures(pg.getPlayer(playerID).getPgFigureArray());
 		Scanner in = new Scanner(System.in);
 		tmp = in.nextInt();
-		while(!pg.getPlayer(playerID).isFigureAvailable(tmp))
+		while(!pg.getPlayer(playerID).isFigureAvailable(tmp)) {
 			tmp = in.nextInt();
-	
+		}
 		return pg.getPlayer(playerID).getFigure(tmp);	
 		
 	}
@@ -193,8 +193,9 @@ public class Controller extends Observable {
 				comingOut(i);
 			} else if (roll == GEWUERFELTESECHS && pg.getPlayer(i).figureStackEmpty() == true) {
 				moveForward(pickFigure(i), roll);
-			} else if (roll != GEWUERFELTESECHS)
+			} else if (roll != GEWUERFELTESECHS) {
 				moveForward(pickFigure(i), roll);
+			}
 			i++;
 			if (i == pl) {
 				i = 0;
