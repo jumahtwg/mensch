@@ -4,7 +4,7 @@ import model.Figure;
 
 import observer.IObserver;
 
-import org.apache.log4j.Logger;
+import org.apache.log4j.*;
 
 import controller.Controller;
 
