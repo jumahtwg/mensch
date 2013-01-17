@@ -31,22 +31,29 @@ public class GUI extends JFrame implements IObserver {
 
 	private static final long serialVersionUID = 1L;
 
-	GamePaint gamePaint;
+	private GamePaint gamePaint;
 	
 
 	private Controller controller;
-	private JPanel panelSouth;
-	private JButton wuerfel;
-	private JButton enter;
-	private JPanel panelWest;
-	private JButton figur0 ;
-	private JButton figur1 ;
-	private JButton figur2 ;
-	private JButton figur3 ;
+	
 	
 	private JTextField output;
 	private JTextField input;
 	private JTextField status;
+	
+	final private int width = 630;
+	final private  int height = 650;
+	
+	final private int widthBg = 550;
+	final private  int heightBg = 550;
+	
+	final private int widthRec = 50;
+	final private  int heightRec = 50;
+	
+	private static final int NULL = 0;
+	private static final int EINS = 1;
+	private static final int ZWEI = 2;
+	private static final int DREI = 3;
 	
 	
 	
@@ -66,22 +73,22 @@ public class GUI extends JFrame implements IObserver {
 		
 		getContentPane().setLayout(new BorderLayout());
 
-		panelSouth = new JPanel();
+		JPanel panelSouth = new JPanel();
 		panelSouth.setLayout(new GridLayout(2, 2));
 		
-		wuerfel = new JButton("Würfel");
+		JButton wuerfel = new JButton("Würfel");
 		wuerfel.addActionListener(buttons);
 		
-		enter = new JButton("Enter");
+		JButton enter = new JButton("Enter");
 		enter.addActionListener(buttons);
 		
-		panelWest = new JPanel();
+		JPanel panelWest = new JPanel();
 		panelWest.setLayout(new BoxLayout(panelWest, BoxLayout.PAGE_AXIS));
 		
-		figur0 = new JButton("Figur0");
-		figur1 = new JButton("Figur1");
-		figur2 = new JButton("Figur2");
-		figur3 = new JButton("Figur3");
+		JButton figur0 = new JButton("Figur0");
+		JButton figur1 = new JButton("Figur1");
+		JButton figur2 = new JButton("Figur2");
+		JButton figur3 = new JButton("Figur3");
 		figur0.addActionListener(buttons);
 		figur1.addActionListener(buttons);
 		figur2.addActionListener(buttons);
@@ -111,7 +118,7 @@ public class GUI extends JFrame implements IObserver {
 		getContentPane().add(panelSouth, BorderLayout.PAGE_END);
 		getContentPane().add(panelWest,BorderLayout.LINE_END);
 
-		setSize(630, 650);
+		setSize(width, height);
 		setResizable(false);
 		setVisible(true);		
 	}
@@ -122,16 +129,16 @@ public class GUI extends JFrame implements IObserver {
 	public void updatePlayerStatus(){
 		int c = controller.getActivePlayer().getPlayerID();
 		switch(c){
-		case 0:
+		case NULL:
 			output.setText("Grüner Spieler ist dran!");
 			break;
-		case 1:
+		case EINS:
 			output.setText("Gelber Spieler ist dran!");
 			break;
-		case 2:
+		case ZWEI:
 			output.setText("Blauer Spieler ist dran!");
 			break;
-		case 3:
+		case DREI:
 		    output.setText("Roter Spieler ist dran!");
 			break;
 		default:
@@ -185,16 +192,16 @@ public class GUI extends JFrame implements IObserver {
 			
 			if (controller.getStatus() == GAME_STATE.CHOOSE_FIG) {
 				if(e.getActionCommand().equals("Figur0")) {
-					controller.setPickFigure(0);
+					controller.setPickFigure(NULL);
 				}
 				if (e.getActionCommand().equals("Figur1")) {
-					controller.setPickFigure(1);
+					controller.setPickFigure(EINS);
 				}
 				if (e.getActionCommand().equals("Figur2")) {
-					controller.setPickFigure(2);
+					controller.setPickFigure(ZWEI);
 				}
 				if (e.getActionCommand().equals("Figur3")) {
-					controller.setPickFigure(3);
+					controller.setPickFigure(DREI);
 				}
 			}
 			if(controller.getStatus()== GAME_STATE.CHOOSE_PLAYER_COUNT){
@@ -211,7 +218,6 @@ public class GUI extends JFrame implements IObserver {
 
 		private static final long serialVersionUID = 1L;
 
-		public int stoneField = 1;
 		private Controller controller;
 
 		public GamePaint(Controller controller) {
@@ -238,7 +244,6 @@ public class GUI extends JFrame implements IObserver {
 
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
 				}
 			}
 
@@ -254,7 +259,7 @@ public class GUI extends JFrame implements IObserver {
 
 		// Methode zum Zeichnen der Speilsteine
 		private void drawBackground(Graphics2D g2) {
-			g2.fillRect(0, 0, 550, 550);
+			g2.fillRect(0, 0, widthBg, heightBg);
 		}
 
 		// Methode zum Zeichnen des Spielfeldes
@@ -277,20 +282,19 @@ public class GUI extends JFrame implements IObserver {
 				if (fieldFigures[k] != null) {
 					int c = fieldFigures[k].getPlayerID();
 					switch (c) {
-					case 0:
+					case NULL:
 						drawFigure(g2, i, j, Color.GREEN);
 						drawFigureID(g2, i, j, k);
-
 						break;
-					case 1:
+					case EINS:
 						drawFigure(g2, i, j, Color.YELLOW);
 						drawFigureID(g2, i, j, k);
 						break;
-					case 2:
+					case ZWEI:
 						drawFigure(g2, i, j, Color.BLUE);
 						drawFigureID(g2, i, j, k);
 						break;
-					case 3:
+					case DREI:
 						drawFigure(g2, i, j, Color.RED);
 						drawFigureID(g2, i, j, k);
 						break;
@@ -299,7 +303,7 @@ public class GUI extends JFrame implements IObserver {
 					}
 				} else {
 					g2.setColor(Color.WHITE);
-					g2.fillRect(i, j, 50, 50);
+					g2.fillRect(i, j, widthRec, heightRec);
 				}
 				k++;
 			}
@@ -308,7 +312,7 @@ public class GUI extends JFrame implements IObserver {
 
 		public void drawTargets(Graphics2D g2) {
 			String pattern = " ";
-			for (int k = 0; k < 4; k++) {
+			for (int k = 0; k < controller.getAnzahlMitspieler(); k++) {
 				ArrayList<String> targetCoords = (ArrayList<String>) controller
 						.getTargetCoords(k);
 				Figure[] targetFigures = controller.getTargetFigureArray(k);
@@ -324,19 +328,19 @@ public class GUI extends JFrame implements IObserver {
 					if (targetFigures[p] != null) {
 						int c = targetFigures[p].getPlayerID();
 						switch (c) {
-						case 0:
+						case NULL:
 							drawFigure(g2, i, j, Color.GREEN);
 							// drawFigureID(g2, i, j, k);
 							break;
-						case 1:
+						case EINS:
 							drawFigure(g2, i, j, Color.YELLOW);
 							// drawFigureID(g2, i, j, k);
 							break;
-						case 2:
+						case ZWEI:
 							drawFigure(g2, i, j, Color.BLUE);
 							// drawFigureID(g2, i, j, k);
 							break;
-						case 3:
+						case DREI:
 							drawFigure(g2, i, j, Color.RED);
 							// drawFigureID(g2, i, j, k);
 							break;
@@ -345,7 +349,7 @@ public class GUI extends JFrame implements IObserver {
 						}
 					} else {
 						g2.setColor(Color.GRAY);
-						g2.fillRect(i, j, 50, 50);
+						g2.fillRect(i, j, widthRec, heightRec);
 					}
 					p++;
 				}
@@ -362,19 +366,19 @@ public class GUI extends JFrame implements IObserver {
 			int zeilevon = 0;
 			int zeilebis = 0;
 			String pattern = " ";
-			if (playerID == 0) {
+			if (playerID == NULL) {
 				ss = controller.getStackSize(0);
 				zeilevon = 0;
 				zeilebis = 4;
-			} else if (playerID == 1) {
+			} else if (playerID == EINS) {
 				ss = controller.getStackSize(1);
 				zeilevon = 4;
 				zeilebis = 8;
-			} else if (playerID == 2) {
+			} else if (playerID == ZWEI) {
 				ss = controller.getStackSize(2);
 				zeilevon = 8;
 				zeilebis = 12;
-			} else if (playerID == 3) {
+			} else if (playerID == DREI) {
 				ss = controller.getStackSize(3);
 				zeilevon = 12;
 				zeilebis = 16;
@@ -440,7 +444,7 @@ public class GUI extends JFrame implements IObserver {
 		private void drawFigure(Graphics2D g2, int x, int y, Color color) {
 
 			g2.setColor(color);
-			g2.fillRect(x, y, 50, 50);
+			g2.fillRect(x, y, widthRec, heightRec);
 
 		}
 	}

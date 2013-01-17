@@ -8,13 +8,14 @@ import controller.Controller;
 
 
 public class Application {
-
+	
+	private Application(){};
     /**
      * @param args
      * @throws IOException 
      * @throws NumberFormatException 
      */
-    public static void main(String[] args) throws NumberFormatException, IOException {
+    public static void main(String[] args) throws IOException {
     	PropertyConfigurator.configure("log4j.properties");
     	
 
@@ -25,18 +26,9 @@ public class Application {
     	TextGUI tui = new TextGUI(game);
     	GUI gui = new GUI(game);
     	
-//		Scanner in = new Scanner(System.in);
-//		System.out.println("Anzahl der Spieler eingeben");
-//		game.setPl(in.nextInt());
-//		System.out.println("pl ist " + game.getPl());
-//		
-//		while (game.getPl() > Controller.getMaxspieler() ) {
-//			System.out.println("Maximale Spieleranzahl: 4, bitte eingeben.");
-//			game.setPl(in.nextInt());
-//		}
+
     	game.addObserver(tui);
     	game.addObserver(gui);
-//    	game.init();
     	
     	game.start();
     }

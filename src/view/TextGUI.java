@@ -44,13 +44,14 @@ public class TextGUI implements IObserver {
 		
 	}
 	
-	private final int wuerfelEINS = 1;
-	private final int wuerfelZWEI = 2;
-	private final int wuerfelDREI = 3;
-	private final int wuerfelVIER = 4;
-	private final int wuerfelFUENF = 5;
-	private final int wuerfelSECHS = 6;
-	private final String KANTE = " ------- ";
+	private final static int wuerfelEINS = 1;
+	private final static int wuerfelZWEI = 2;
+	private final static int wuerfelDREI = 3;
+	private final static int wuerfelVIER = 4;
+	private final static int wuerfelFUENF = 5;
+	private final static int wuerfelSECHS = 6;
+	private final static String kante = " ------- ";
+	private final static String leer =  "         ";
 	
 	private Logger logger = Logger.getLogger("view.TextGUI");
 
@@ -106,16 +107,6 @@ public class TextGUI implements IObserver {
 		println("");
 	}
 	
-//	public static void printStatusLine(int i){
-//		switch (i)
-//		{
-//		case 1:
-//			System.out.println("Spieler");
-//		
-//		}
-//				
-//	}
-	
 	public void printFigureStatus(Figure fig){
 		println("-----------------------------------------------");
 		println("PlayerID: " + fig.getPlayerID());
@@ -134,47 +125,47 @@ public class TextGUI implements IObserver {
 		println("Player " + playerID + " Wuerfel: ");
 		switch (value){
 		case wuerfelEINS:
-			println(KANTE);
-			println("|       |");
+			println(kante);
+			println(leer);
 			println("|   O   |");
-			println("|       |"); 
-			println(KANTE);
+			println(leer); 
+			println(kante);
 			break;
 
 		case wuerfelZWEI:
-			println(KANTE);
+			println(kante);
 			println("|     O |");
-			println("|       |");
+			println(leer);
 			println("| O     |");
-			println(KANTE);
+			println(kante);
 			break;
 		case wuerfelDREI:
-			println(KANTE);
+			println(kante);
 			println("|     O |");
 			println("|   O   |");
 			println("| O     |");
-			println(KANTE);
+			println(kante);
 			break;
 		case wuerfelVIER:
-			println(KANTE);
+			println(kante);
 			println("| O   O |");
-			println("|       |");
+			println(leer);
 			println("| O   O |");
-			println(KANTE);
+			println(kante);
 			break;
 		case wuerfelFUENF:
-			println(KANTE);
+			println(kante);
 			println("| O   O |");
 			println("|   O   |");
 			println("| O   O |");
-			println(" ------- ");
+			println(kante);
 			break;
 		case wuerfelSECHS:
-			println(KANTE);
+			println(kante);
 			println("| O   O |");
 			println("| O   O |");
 			println("| O   O |");
-			println(KANTE);
+			println(kante);
 			break;
 		}
 		
@@ -194,8 +185,9 @@ public class TextGUI implements IObserver {
 
 	public void updateShowGameFrame() {
 		printArrays(controller.getPgArray());
-		for(int i=0; i<4;i++)
+		for(int i=0; i < 4;i++){
 		    printArrays(controller.getTargetFigureArray(i));
+		}
 	}
 	
 	public void updatePrintFigures(){
@@ -203,9 +195,7 @@ public class TextGUI implements IObserver {
 	}
 
 	public void inputChoosePlayerCount() {
-//		Scanner in = new Scanner(System.in);
-//		int pl = in.nextInt();
-//		controller.setPl(pl);
+
 	}
 	
 	public void updateChooseFigure(){

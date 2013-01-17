@@ -1,7 +1,6 @@
 package model;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
@@ -27,7 +26,7 @@ public class Player {
 
 	private Deque<Figure> startStack = new ArrayDeque<Figure>();
 	private Figure[] pgFigureArray = new Figure[SPIELFIGUREN];
-	List<String> stackCoords = new ArrayList<String>();
+	private List<String> stackCoords = new ArrayList<String>();
 
 	public Player(int playerID) {
 		this.playerID = playerID;
@@ -58,7 +57,7 @@ public class Player {
 		return this.playerID;
 	}
 
-	public void addStackCoords() throws NumberFormatException, IOException {
+	public void addStackCoords() throws IOException  {
 		FileReader fr = new FileReader(
 				"C:\\Temp\\EclipseWorkSpace\\mensch\\src\\model\\stackCoords.txt");
 		BufferedReader br = new BufferedReader(fr);
@@ -75,6 +74,7 @@ public class Player {
 				}
 			}
 		}
+		br.close();
 	}
 	
 	public List<String> getStackCoords(){
@@ -94,8 +94,6 @@ public class Player {
 
 	public void pushFigure(Figure figure) {
 		if (startStack.size() == MAXSPIELFIGUREN) {
-			System.out
-					.println("Alle Figuren des Spielers sind bereits im Startfeld");
 			return;
 		}
 		figure.resetWegLaenge();
@@ -157,11 +155,10 @@ public class Player {
 	}
 
 	public boolean isFigureAvailable(int figID) {
-		if (figID > SPIELFIGUREN - 1 || pgFigureArray[figID] == null) {
+		if (figID > SPIELFIGUREN - 1 || pgFigureArray[figID] == null){
 			return false;
-		} else {
-			return true;
 		}
+		return true;
 	}
 
 }

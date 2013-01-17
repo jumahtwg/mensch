@@ -41,8 +41,7 @@ public class Controller extends Observable {
 		try {
 			pg.addCoordinates();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
 		}
 		status = GAME_STATE.CHOOSE_PLAYER_COUNT;
 		notifyChoosePlayerCount();
@@ -50,7 +49,6 @@ public class Controller extends Observable {
 
 	public void inputPlayerCount(int playerCount) {
 		pl = playerCount;
-		// pg.setAnzMit(playerCount);
 		for (int i = 0; i < playerCount; i++) {
 			pg.addPlayer(new Player(i));
 		}
@@ -108,37 +106,35 @@ public class Controller extends Observable {
 		 * ist
 		 * 
 		 */
-		if(pg.getFigureOnPosition(
-					pg.getPlayer(activePlayerID).getStartField()) != null){
-				
-			
-			if (roll == GEWUERFELTESECHS && pg.getPlayer(activePlayerID).figureStackEmpty() == false
-					&& pg.getFigureOnPosition(
-							pg.getPlayer(activePlayerID).getStartField())
-							.getPlayerID() == activePlayerID) {
-				moveForward(pg.getFigureOnPosition(pg.getPlayer(activePlayerID)
-						.getStartField()), roll);
-				notifyObserversPlayerStatus();
-				status = GAME_STATE.ROLL;
-				notifyObserversRoll();
-				notifyShowGameFrame();
-				return;
-			}
-		}
-			if (roll == GEWUERFELTESECHS && pg.getPlayer(activePlayerID).figureStackEmpty() == false) {
+		if (roll == GEWUERFELTESECHS) {
+			if (pg.getFigureOnPosition(pg.getPlayer(activePlayerID)
+					.getStartField()) != null) {
+
+				if (pg.getPlayer(activePlayerID).figureStackEmpty() == false
+						&& pg.getFigureOnPosition(
+								pg.getPlayer(activePlayerID).getStartField())
+								.getPlayerID() == activePlayerID) {
+					moveForward(pg.getFigureOnPosition(pg.getPlayer(
+							activePlayerID).getStartField()), roll);
+					notifyObserversPlayerStatus();
+					status = GAME_STATE.ROLL;
+					notifyObserversRoll();
+					notifyShowGameFrame();
+					return;
+				}
+			}else if (pg.getPlayer(activePlayerID).figureStackEmpty() == false) {
 				comingOut(activePlayerID);
 				notifyObserversPlayerStatus();
 				status = GAME_STATE.ROLL;
 				notifyObserversRoll();
 				notifyShowGameFrame();
 				return;
-			}
+			} else {
+				status = GAME_STATE.CHOOSE_FIG;
+				notifyChooseFigure();
+				return;
 
-		 else if (roll == GEWUERFELTESECHS
-				&& pg.getPlayer(activePlayerID).figureStackEmpty() == true) {
-			status = GAME_STATE.CHOOSE_FIG;
-			notifyChooseFigure();
-			return;
+			}
 		} else if (roll != GEWUERFELTESECHS) {
 			status = GAME_STATE.CHOOSE_FIG;
 			notifyChooseFigure();
@@ -306,8 +302,6 @@ public class Controller extends Observable {
 	}
 
 	public int getStackSize(int playerID) {
-		// if(pg.getPlayer(playerID) == null)
-		// return -1;
 		return pg.getPlayer(playerID).getStackSize();
 	}
 
