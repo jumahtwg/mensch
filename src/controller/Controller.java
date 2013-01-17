@@ -242,7 +242,6 @@ public class Controller extends Observable {
 		return pg.getTargetCoordnates(player);
 	}
 	public List<String> getStackCoords() throws FileNotFoundException{
-		 System.out.println("tmp Stack list" + pg.getStackCoords());
 		return pg.getStackCoords();
 	}
 	public Figure getFigureOnPos(int k){
@@ -250,9 +249,8 @@ public class Controller extends Observable {
 	}
 	
 	public int getStackSize(int playerID){
-		System.out.println("testdafadgdfg");
-		if(pg.getPlayer(playerID) == null)
-			return -1;
+//		if(pg.getPlayer(playerID) == null)
+//			return -1;
 		return pg.getPlayer(playerID).getStackSize();
 	}
 	
