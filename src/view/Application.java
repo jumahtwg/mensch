@@ -1,11 +1,11 @@
-package controller;
+package view;
 
 import java.io.IOException;
 
 import org.apache.log4j.PropertyConfigurator;
 
-import view.GUI;
-import view.TextGUI;
+import controller.Controller;
+
 
 public class Application {
 
