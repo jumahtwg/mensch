@@ -9,7 +9,7 @@ import model.Playground;
 import observer.Observable;
 
 public class Controller extends Observable {
-	
+
 	public enum GAME_STATE {
 		CHOOSE_FIG, ROLL, CHOOSE_PLAYER_COUNT, GAME_STOP
 	}
@@ -19,7 +19,7 @@ public class Controller extends Observable {
 	private int activeFigureID;
 	private GAME_STATE status;
 	private int roll;
-	private int pl;
+	private int pl = 0;
 	private static final int MAXSPIELER = 4;
 	private static final int MAXGEFAHRENEWEGLAENGE = 39;
 	private static final int GEWUERFELTESECHS = 6;
@@ -36,7 +36,7 @@ public class Controller extends Observable {
 	public Controller() {
 		this.pg = new Playground();
 	}
-	
+
 	public void start() {
 		try {
 			pg.addCoordinates();
@@ -47,25 +47,26 @@ public class Controller extends Observable {
 		status = GAME_STATE.CHOOSE_PLAYER_COUNT;
 		notifyChoosePlayerCount();
 	}
-	
+
 	public void inputPlayerCount(int playerCount) {
 		pl = playerCount;
-		//pg.setAnzMit(playerCount);
+		// pg.setAnzMit(playerCount);
 		for (int i = 0; i < playerCount; i++) {
 			pg.addPlayer(new Player(i));
 		}
 		activePlayerID = 0;
-		
 		notifyShowGameFrame();
+		notifyObserversPlayerStatus();
+
 		status = GAME_STATE.ROLL;
 		notifyObserversRoll();
 	}
-	
-	private void incrementPlayerID(){
+
+	private void incrementPlayerID() {
 		if (roll == GEWUERFELTESECHS) {
 			return;
 		}
-		
+
 		activePlayerID++;
 		if (activePlayerID == pl) {
 			activePlayerID = 0;
@@ -76,41 +77,67 @@ public class Controller extends Observable {
 		roll = pg.getPlayer(activePlayerID).rolling();
 		notifyShowGameFrame();
 		notifyObserversPrintDice();
-		
-		if ((roll != GEWUERFELTESECHS && pg.getPlayer(activePlayerID).getStackSize() == VORHANDENEFIGUREN) 
-				|| (roll != GEWUERFELTESECHS && pg.getPlayer(activePlayerID).getStackSize() != VORHANDENEFIGUREN 
-				&& pg.getPlayer(activePlayerID).figureArrayEmpty() )) {
+
+		if ((roll != GEWUERFELTESECHS && pg.getPlayer(activePlayerID)
+				.getStackSize() == VORHANDENEFIGUREN)
+				|| (roll != GEWUERFELTESECHS
+						&& pg.getPlayer(activePlayerID).getStackSize() != VORHANDENEFIGUREN && pg
+						.getPlayer(activePlayerID).figureArrayEmpty())) {
 			for (int k = 0; k < 2 && roll != GEWUERFELTESECHS; k++) {
 				roll = pg.getPlayer(activePlayerID).rolling();
-			
+
 				notifyObserversPrintDice();
-				/** wenn Wurf immernoch keine 'GEWUERFELTESECHS' , naechster Spieler **/
+				/**
+				 * wenn Wurf immernoch keine 'GEWUERFELTESECHS' , naechster
+				 * Spieler
+				 **/
 
 			}
 			if (roll != GEWUERFELTESECHS) {
 				incrementPlayerID();
+				notifyObserversPlayerStatus();
 				status = GAME_STATE.ROLL;
 				notifyObserversRoll();
 				return;
 			}
 		}
-		
+
 		/**
-		 * wenn wuerfel 'GEWUERFELTESECHS' zeigt UND spieler noch figuren auf Stack hat UND
-		 * sein Startfeld NICHT von seiner eigenen Figur besetzt ist
+		 * wenn wuerfel 'GEWUERFELTESECHS' zeigt UND spieler noch figuren auf
+		 * Stack hat UND sein Startfeld NICHT von seiner eigenen Figur besetzt
+		 * ist
 		 * 
 		 */
-		
-		if (roll == GEWUERFELTESECHS && pg.getPlayer(activePlayerID).figureStackEmpty() == false) {
-			comingOut(activePlayerID);
-			status = GAME_STATE.ROLL;
-			notifyObserversRoll();
-			notifyShowGameFrame();
-			return;
+		if(pg.getFigureOnPosition(
+					pg.getPlayer(activePlayerID).getStartField()) != null){
+				
 			
-		} else if (roll == GEWUERFELTESECHS && pg.getPlayer(activePlayerID).figureStackEmpty() == true) {
+			if (roll == GEWUERFELTESECHS && pg.getPlayer(activePlayerID).figureStackEmpty() == false
+					&& pg.getFigureOnPosition(
+							pg.getPlayer(activePlayerID).getStartField())
+							.getPlayerID() == activePlayerID) {
+				moveForward(pg.getFigureOnPosition(pg.getPlayer(activePlayerID)
+						.getStartField()), roll);
+				notifyObserversPlayerStatus();
+				status = GAME_STATE.ROLL;
+				notifyObserversRoll();
+				notifyShowGameFrame();
+				return;
+			}
+		}
+			if (roll == GEWUERFELTESECHS && pg.getPlayer(activePlayerID).figureStackEmpty() == false) {
+				comingOut(activePlayerID);
+				notifyObserversPlayerStatus();
+				status = GAME_STATE.ROLL;
+				notifyObserversRoll();
+				notifyShowGameFrame();
+				return;
+			}
+
+		 else if (roll == GEWUERFELTESECHS
+				&& pg.getPlayer(activePlayerID).figureStackEmpty() == true) {
 			status = GAME_STATE.CHOOSE_FIG;
-			notifyChooseFigure();						
+			notifyChooseFigure();
 			return;
 		} else if (roll != GEWUERFELTESECHS) {
 			status = GAME_STATE.CHOOSE_FIG;
@@ -118,11 +145,11 @@ public class Controller extends Observable {
 			return;
 		}
 		incrementPlayerID();
+		notifyObserversPlayerStatus();
 		notifyShowGameFrame();
 		status = GAME_STATE.ROLL;
-		notifyObserversRoll();		
+		notifyObserversRoll();
 	}
-		
 
 	public int getPl() {
 		return pl;
@@ -152,40 +179,44 @@ public class Controller extends Observable {
 		Figure enemy = pg.getFigureOnPosition(position);
 		enemy.resetWegLaenge();
 		enemy.hasPlayer().pushFigure(enemy);
-		
+
 	}
 
 	public void moveForward(Figure fig, int positions) {
 		int oldPos = fig.getFigurePos();
 		int newPos = oldPos + positions;
 		fig.setWeglaenge(positions);
-				
+
 		/**
 		 * wenn Figur mit aktuellen Wurf ueber eine Runde gelaufen ist -> store
 		 * into Array
 		 **/
-		
+
 		if (fig.getWeglaenge() > MAXGEFAHRENEWEGLAENGE) {
 			int c = fig.getWeglaenge();
 			switch (c) {
 			case ERSTESZIELFELD:
 				pg.storeFigure(fig, NULL);
-				pg.getPlayer(fig.getPlayerID()).removeFigureFromActiveSoldiers(fig);
+				pg.getPlayer(fig.getPlayerID()).removeFigureFromActiveSoldiers(
+						fig);
 				pg.setFigureOnPosition(null, oldPos);
 				return;
 			case ZWEITESZIELFELD:
 				pg.storeFigure(fig, EINS);
-				pg.getPlayer(fig.getPlayerID()).removeFigureFromActiveSoldiers(fig);
+				pg.getPlayer(fig.getPlayerID()).removeFigureFromActiveSoldiers(
+						fig);
 				pg.setFigureOnPosition(null, oldPos);
 				return;
 			case DRITTESZIELFELD:
 				pg.storeFigure(fig, ZWEI);
-				pg.getPlayer(fig.getPlayerID()).removeFigureFromActiveSoldiers(fig);
+				pg.getPlayer(fig.getPlayerID()).removeFigureFromActiveSoldiers(
+						fig);
 				pg.setFigureOnPosition(null, oldPos);
 				return;
 			case VIERTESZIELFELD:
 				pg.storeFigure(fig, DREI);
-				pg.getPlayer(fig.getPlayerID()).removeFigureFromActiveSoldiers(fig);
+				pg.getPlayer(fig.getPlayerID()).removeFigureFromActiveSoldiers(
+						fig);
 				pg.setFigureOnPosition(null, oldPos);
 				return;
 			default:
@@ -194,8 +225,8 @@ public class Controller extends Observable {
 			}
 
 		}
-		
-		if( newPos > MAXGEFAHRENEWEGLAENGE){
+
+		if (newPos > MAXGEFAHRENEWEGLAENGE) {
 			newPos = newPos % MAXGEFAHRENEWEGLAENGE;
 			fig.setFigurePos(newPos);
 		} else {
@@ -222,64 +253,69 @@ public class Controller extends Observable {
 		pg.setFigureOnPosition(fig, newPos);
 		return;
 	}
-		
-	public void setPickFigure(int figureID) {		
+
+	public void setPickFigure(int figureID) {
 		if (pg.getPlayer(activePlayerID).isFigureAvailable(figureID)) {
-			activeFigureID =  figureID;		
-			moveForward(pg.getPlayer(activePlayerID).getFigure(activeFigureID), roll);
+			activeFigureID = figureID;
+			moveForward(pg.getPlayer(activePlayerID).getFigure(activeFigureID),
+					roll);
 		}
 		incrementPlayerID();
+		notifyObserversPlayerStatus();
 		notifyShowGameFrame();
 		status = GAME_STATE.ROLL;
-		notifyObserversRoll();			
+		notifyObserversRoll();
 		return;
 	}
 
 	public void update() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
-	
+
 	public Player getActivePlayer() {
 		return pg.getPlayer(activePlayerID);
 	}
-	
+
 	public int getRoll() {
 		return roll;
 	}
-	public Figure[] getPlayerFigures(){
+
+	public Figure[] getPlayerFigures() {
 		return pg.getPlayer(activePlayerID).getPgFigureArray();
 	}
-	public Figure[] getPgArray(){
+
+	public Figure[] getPgArray() {
 		return pg.getFieldArray();
 	}
-	
-	public List<String> getFieldCoords(){
+
+	public List<String> getFieldCoords() {
 		return pg.getFieldCoordnates();
 	}
-	
-	public List<String> getTargetCoords(int player){
+
+	public List<String> getTargetCoords(int player) {
 		return pg.getTargetCoordnates(player);
 	}
-	public List<String> getStackCoords() throws FileNotFoundException{
+
+	public List<String> getStackCoords() throws FileNotFoundException {
 		return pg.getStackCoords();
 	}
-	public Figure getFigureOnPos(int k){
+
+	public Figure getFigureOnPos(int k) {
 		return pg.getFigureOnPosition(k);
 	}
-	
-	public int getStackSize(int playerID){
-//		if(pg.getPlayer(playerID) == null)
-//			return -1;
+
+	public int getStackSize(int playerID) {
+		// if(pg.getPlayer(playerID) == null)
+		// return -1;
 		return pg.getPlayer(playerID).getStackSize();
 	}
-	
-	public int getAnzahlMitspieler(){
+
+	public int getAnzahlMitspieler() {
 		return pl;
 	}
-	
-	public Figure[] getTargetFigureArray(int playerID){
+
+	public Figure[] getTargetFigureArray(int playerID) {
 		return pg.getTargetArray(playerID);
 	}
 
@@ -290,5 +326,5 @@ public class Controller extends Observable {
 	public void setStatus(GAME_STATE status) {
 		this.status = status;
 	}
-	
+
 }

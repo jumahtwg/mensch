@@ -8,5 +8,6 @@ public interface IObserver {
 	void updateChooseFigure();
 	void inputChoosePlayerCount();
     void updateObserversRoll();
+    void updatePlayerStatus();
 	//TODO
 }

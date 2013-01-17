@@ -63,6 +63,13 @@ public class Observable{
 		}
 	}
 	
+	public void notifyObserversPlayerStatus(){
+		for(Iterator<IObserver> iter = subscribers.iterator(); iter.hasNext();){
+			IObserver observer = iter.next();
+			observer.updatePlayerStatus();
+		}
+	}
+	
 
 
 }

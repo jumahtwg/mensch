@@ -209,7 +209,7 @@ public class TextGUI implements IObserver {
 	}
 	
 	public void updateChooseFigure(){
-		System.out.println("Spieler wählen: ");
+		println("Spieler wählen: ");
 	}
 
 
@@ -219,6 +219,29 @@ public class TextGUI implements IObserver {
 
 
 	public void updateObserversRoll() {
-		System.out.println("Bitte würfeln: ");
+		println("Bitte würfeln: ");
+	}
+
+
+	public void updatePlayerStatus() {
+		int c = controller.getActivePlayer().getPlayerID();
+		switch(c){
+		case 0:
+			println("Grüner Spieler ist dran!");
+			break;
+		case 1:
+			println("Gelber Spieler ist dran!");
+			break;
+		case 2:
+			println("Blauer Spieler ist dran!");
+			break;
+		case 3:
+			println("Roter Spieler ist dran!");
+			break;
+		default:
+			println("Grüner Spieler ist dran!");
+			break;
+		}
+		
 	}
 }

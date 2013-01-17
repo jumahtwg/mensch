@@ -117,12 +117,9 @@ public class GUI extends JFrame implements IObserver {
 	}
 
 	public void updatePrintDice() {
-
+		
 	}
-
-	public void updateShowGameFrame() {
-		gamePaint.repaint();
-		status.setText("Es wurde gewuerfelt:" + controller.getRoll());
+	public void updatePlayerStatus(){
 		int c = controller.getActivePlayer().getPlayerID();
 		switch(c){
 		case 0:
@@ -137,7 +134,15 @@ public class GUI extends JFrame implements IObserver {
 		case 3:
 		    output.setText("Roter Spieler ist dran!");
 			break;
+		default:
+			output.setText("Grüner Spieler ist dran!");
+			break;
 		}
+	}
+
+	public void updateShowGameFrame() {
+		gamePaint.repaint();
+		status.setText("Es wurde gewuerfelt:" + controller.getRoll());
 	}
 
 	public void updatePrintFigures() {
