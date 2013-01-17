@@ -1,12 +1,9 @@
 package model;
 
-import java.awt.Color;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.URL;
 import java.util.*;
 
 
@@ -49,8 +46,6 @@ public class Playground {
 	
 	public void addCoordinates() throws FileNotFoundException{
 		// Feldkoordinaten
-	    URL path = ClassLoader.getSystemResource("fieldCoords.txt");
-
 
 		FileReader fr = new FileReader("fieldCoords.txt");
 		FileReader fr2 = new FileReader("stackCoords.txt");

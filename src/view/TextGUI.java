@@ -1,14 +1,49 @@
 package view;
 
-import model.Figure;
+import java.util.Scanner;
 
+import model.Figure;
 import observer.IObserver;
 
-import org.apache.log4j.*;
+import org.apache.log4j.Logger;
 
 import controller.Controller;
 
 public class TextGUI implements IObserver {
+	
+	private class TextInput implements Runnable {
+
+		private Scanner scan;
+		private Controller contr;
+		
+		public TextInput(Controller contr)  {
+			this.contr = contr;
+			scan = new Scanner(System.in);
+		}
+		
+		public void run() {
+			while (true) {		
+				int input = scan.nextInt();
+				
+				switch (contr.getStatus()) {
+				case CHOOSE_FIG:
+					contr.setPickFigure(input);
+					break;
+				case CHOOSE_PLAYER_COUNT:
+					contr.inputPlayerCount(input);
+					break;
+				case ROLL:
+					contr.doDice();		
+					break;
+				default:
+					
+					break;
+				}				
+			}			
+		}
+		
+	}
+	
 	private final int wuerfelEINS = 1;
 	private final int wuerfelZWEI = 2;
 	private final int wuerfelDREI = 3;
@@ -19,11 +54,17 @@ public class TextGUI implements IObserver {
 	
 	private Logger logger = Logger.getLogger("view.TextGUI");
 
+	private Thread inputThread;
 	private Controller controller;
 	
 	public TextGUI(Controller controller) {
 		super();
 		this.controller = controller;
+		
+		this.inputThread = new Thread(new TextInput(controller));
+		this.inputThread.setDaemon(true);
+		this.inputThread.setName("InputThread");
+		this.inputThread.start();
 	}
 	
 	
@@ -151,7 +192,7 @@ public class TextGUI implements IObserver {
 	}
 
 
-	public void updatePrintArray() {
+	public void updateShowGameFrame() {
 		printArrays(controller.getPgArray());
 		for(int i=0; i<4;i++)
 		    printArrays(controller.getTargetFigureArray(i));
@@ -159,5 +200,25 @@ public class TextGUI implements IObserver {
 	
 	public void updatePrintFigures(){
 		printActiveFigures(controller.getPlayerFigures());
+	}
+
+	public void inputChoosePlayerCount() {
+//		Scanner in = new Scanner(System.in);
+//		int pl = in.nextInt();
+//		controller.setPl(pl);
+	}
+	
+	public void updateChooseFigure(){
+		System.out.println("Spieler wählen: ");
+	}
+
+
+	public void updateInput() {
+	
+	}
+
+
+	public void updateObserversRoll() {
+		System.out.println("Bitte würfeln: ");
 	}
 }

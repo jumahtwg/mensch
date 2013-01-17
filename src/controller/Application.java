@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 import org.apache.log4j.PropertyConfigurator;
 
@@ -25,19 +24,21 @@ public class Application {
     	
     	TextGUI tui = new TextGUI(game);
     	GUI gui = new GUI(game);
-		Scanner in = new Scanner(System.in);
-		System.out.println("Anzahl der Spieler eingeben");
-		game.setPl(in.nextInt());
-		System.out.println("pl ist " + game.getPl());
-		
-		while (game.getPl() > Controller.getMaxspieler() ) {
-			System.out.println("Maximale Spieleranzahl: 4, bitte eingeben.");
-			game.setPl(in.nextInt());
-		}
+    	
+//		Scanner in = new Scanner(System.in);
+//		System.out.println("Anzahl der Spieler eingeben");
+//		game.setPl(in.nextInt());
+//		System.out.println("pl ist " + game.getPl());
+//		
+//		while (game.getPl() > Controller.getMaxspieler() ) {
+//			System.out.println("Maximale Spieleranzahl: 4, bitte eingeben.");
+//			game.setPl(in.nextInt());
+//		}
     	game.addObserver(tui);
     	game.addObserver(gui);
-    	game.init();
-	
+//    	game.init();
+    	
+    	game.start();
     }
 
 }

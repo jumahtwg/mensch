@@ -1,20 +1,23 @@
 package controller;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.List;
-import java.util.Scanner;
 
 import model.Figure;
 import model.Player;
 import model.Playground;
 import observer.Observable;
-import view.TextGUI;
 
 public class Controller extends Observable {
+	
+	public enum GAME_STATE {
+		CHOOSE_FIG, ROLL, CHOOSE_PLAYER_COUNT, GAME_STOP
+	}
 
 	private Playground pg;
 	private int activePlayerID;
+	private int activeFigureID;
+	private GAME_STATE status;
 	private int roll;
 	private int pl;
 	private static final int MAXSPIELER = 4;
@@ -33,22 +36,93 @@ public class Controller extends Observable {
 	public Controller() {
 		this.pg = new Playground();
 	}
-
-	public void init() throws NumberFormatException, IOException {
-
-
-		for (int i = 0; i < pl; i++) {
-			pg.addPlayer(new Player(i));
-		}
+	
+	public void start() {
 		try {
 			pg.addCoordinates();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		runningGame(pl);
+		status = GAME_STATE.CHOOSE_PLAYER_COUNT;
+		notifyChoosePlayerCount();
 	}
+	
+	public void inputPlayerCount(int playerCount) {
+		pl = playerCount;
+		//pg.setAnzMit(playerCount);
+		for (int i = 0; i < playerCount; i++) {
+			pg.addPlayer(new Player(i));
+		}
+		activePlayerID = 0;
+		
+		notifyShowGameFrame();
+		status = GAME_STATE.ROLL;
+		notifyObserversRoll();
+	}
+	
+	private void incrementPlayerID(){
+		if (roll == GEWUERFELTESECHS) {
+			return;
+		}
+		
+		activePlayerID++;
+		if (activePlayerID == pl) {
+			activePlayerID = 0;
+		}
+	}
+
+	public void doDice() {
+		roll = pg.getPlayer(activePlayerID).rolling();
+		notifyShowGameFrame();
+		notifyObserversPrintDice();
+		
+		if ((roll != GEWUERFELTESECHS && pg.getPlayer(activePlayerID).getStackSize() == VORHANDENEFIGUREN) 
+				|| (roll != GEWUERFELTESECHS && pg.getPlayer(activePlayerID).getStackSize() != VORHANDENEFIGUREN 
+				&& pg.getPlayer(activePlayerID).figureArrayEmpty() )) {
+			for (int k = 0; k < 2 && roll != GEWUERFELTESECHS; k++) {
+				roll = pg.getPlayer(activePlayerID).rolling();
+			
+				notifyObserversPrintDice();
+				/** wenn Wurf immernoch keine 'GEWUERFELTESECHS' , naechster Spieler **/
+
+			}
+			if (roll != GEWUERFELTESECHS) {
+				incrementPlayerID();
+				status = GAME_STATE.ROLL;
+				notifyObserversRoll();
+				return;
+			}
+		}
+		
+		/**
+		 * wenn wuerfel 'GEWUERFELTESECHS' zeigt UND spieler noch figuren auf Stack hat UND
+		 * sein Startfeld NICHT von seiner eigenen Figur besetzt ist
+		 * 
+		 */
+		
+		if (roll == GEWUERFELTESECHS && pg.getPlayer(activePlayerID).figureStackEmpty() == false) {
+			comingOut(activePlayerID);
+			status = GAME_STATE.ROLL;
+			notifyObserversRoll();
+			notifyShowGameFrame();
+			return;
+			
+		} else if (roll == GEWUERFELTESECHS && pg.getPlayer(activePlayerID).figureStackEmpty() == true) {
+			status = GAME_STATE.CHOOSE_FIG;
+			notifyChooseFigure();						
+			return;
+		} else if (roll != GEWUERFELTESECHS) {
+			status = GAME_STATE.CHOOSE_FIG;
+			notifyChooseFigure();
+			return;
+		}
+		incrementPlayerID();
+		notifyShowGameFrame();
+		status = GAME_STATE.ROLL;
+		notifyObserversRoll();		
+	}
+		
 
 	public int getPl() {
 		return pl;
@@ -82,7 +156,6 @@ public class Controller extends Observable {
 	}
 
 	public void moveForward(Figure fig, int positions) {
-
 		int oldPos = fig.getFigurePos();
 		int newPos = oldPos + positions;
 		fig.setWeglaenge(positions);
@@ -141,83 +214,25 @@ public class Controller extends Observable {
 				&& pg.getFigureOnPosition(newPos).hasPlayer() == fig
 						.hasPlayer()) {
 			/** waehle andere Figur zum Laufen **/
-			fig = pickFigure(fig.hasPlayer().getPlayerID());
-			oldPos = fig.getFigurePos();
-			newPos = fig.getFigurePos() + positions;
-			pg.setFigureOnPosition(null, oldPos);
-			pg.setFigureOnPosition(fig, newPos);
+			notifyChooseFigure();
+			return;
+
 		}
 		pg.setFigureOnPosition(null, oldPos);
 		pg.setFigureOnPosition(fig, newPos);
 		return;
-		// if feldende erreicht
 	}
-
-	public Figure pickFigure(int playerID) {
-		int tmp;
-		notifyObserversPrintActiveFigures();
-		Scanner in = new Scanner(System.in);
-		tmp = in.nextInt();
-		while(!pg.getPlayer(playerID).isFigureAvailable(tmp)) {
-			tmp = in.nextInt();
-		}
-		return pg.getPlayer(playerID).getFigure(tmp);	
 		
-	}
-
-	public void runningGame(int pl) {
-		int i = 0;
-		while (i < pl) {
-			activePlayerID = i;
-			roll = 0;			
-			roll = pg.getPlayer(i).rolling();
-			notifyObserversPrintDice();
-		
-			/**
-			 * wenn erster Wurf keine 'GEWUERFELTESECHS' und Spieler hat noch alle Figuren auf
-			 * Stack, wuerfle 2 weitere Male
-			 **/
-			if ((roll != GEWUERFELTESECHS && pg.getPlayer(i).getStackSize() == VORHANDENEFIGUREN) 
-					|| (roll != GEWUERFELTESECHS && pg.getPlayer(i).getStackSize() != VORHANDENEFIGUREN 
-					&& pg.getPlayer(i).figureArrayEmpty() )) {
-				for (int k = 0; k < 2 && roll != GEWUERFELTESECHS; k++) {
-					roll = pg.getPlayer(i).rolling();
-					
-					notifyObserversPrintDice();
-					/** wenn Wurf immernoch keine 'GEWUERFELTESECHS' , naechster Spieler **/
-
-				}
-				if (roll != GEWUERFELTESECHS) {
-					i++;
-					if (i == pl) {
-						i = 0;
-					}
-					continue;
-				}
-			}
-			
-
-			/**
-			 * wenn wuerfel 'GEWUERFELTESECHS' zeigt UND spieler noch figuren auf Stack hat UND
-			 * sein Startfeld NICHT von seiner eigenen Figur besetzt ist
-			 * 
-			 */
-			
-			if (roll == GEWUERFELTESECHS && pg.getPlayer(i).figureStackEmpty() == false) {
-				System.out.println("Spieler " + i + " kommt raus!");
-				comingOut(i);
-			} else if (roll == GEWUERFELTESECHS && pg.getPlayer(i).figureStackEmpty() == true) {
-				moveForward(pickFigure(i), roll);
-			} else if (roll != GEWUERFELTESECHS) {
-				moveForward(pickFigure(i), roll);
-			}
-			i++;
-			if (i == pl) {
-				i = 0;
-			}
-			notifyObserversArray();
-			
+	public void setPickFigure(int figureID) {		
+		if (pg.getPlayer(activePlayerID).isFigureAvailable(figureID)) {
+			activeFigureID =  figureID;		
+			moveForward(pg.getPlayer(activePlayerID).getFigure(activeFigureID), roll);
 		}
+		incrementPlayerID();
+		notifyShowGameFrame();
+		status = GAME_STATE.ROLL;
+		notifyObserversRoll();			
+		return;
 	}
 
 	public void update() {
@@ -261,11 +276,19 @@ public class Controller extends Observable {
 	}
 	
 	public int getAnzahlMitspieler(){
-		return pg.getAnzMit();
+		return pl;
 	}
 	
 	public Figure[] getTargetFigureArray(int playerID){
 		return pg.getTargetArray(playerID);
+	}
+
+	public GAME_STATE getStatus() {
+		return status;
+	}
+
+	public void setStatus(GAME_STATE status) {
+		this.status = status;
 	}
 	
 }
