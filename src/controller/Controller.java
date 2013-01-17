@@ -16,7 +16,7 @@ public class Controller extends Observable {
 	private Playground pg;
 	private int activePlayerID;
 	private int roll;
-	private static int pl;
+	private int pl;
 	private static final int MAXSPIELER = 4;
 	private static final int MAXGEFAHRENEWEGLAENGE = 39;
 	private static final int GEWUERFELTESECHS = 6;
@@ -50,7 +50,7 @@ public class Controller extends Observable {
 		runningGame(pl);
 	}
 
-	public static int getPl() {
+	public int getPl() {
 		return pl;
 	}
 
@@ -58,8 +58,8 @@ public class Controller extends Observable {
 		return MAXSPIELER;
 	}
 
-	public static void setPl(int pl) {
-		Controller.pl = pl;
+	public void setPl(int pl) {
+		this.pl = pl;
 	}
 
 	public void comingOut(int playerID) {

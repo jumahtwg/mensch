@@ -27,12 +27,12 @@ public class Application {
     	GUI gui = new GUI(game);
 		Scanner in = new Scanner(System.in);
 		System.out.println("Anzahl der Spieler eingeben");
-		Controller.setPl(in.nextInt());
-		System.out.println("pl ist " + Controller.getPl());
+		game.setPl(in.nextInt());
+		System.out.println("pl ist " + game.getPl());
 		
-		while (Controller.getPl() > Controller.getMaxspieler() ) {
+		while (game.getPl() > Controller.getMaxspieler() ) {
 			System.out.println("Maximale Spieleranzahl: 4, bitte eingeben.");
-			Controller.setPl(in.nextInt());
+			game.setPl(in.nextInt());
 		}
     	game.addObserver(tui);
     	game.addObserver(gui);
