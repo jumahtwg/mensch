@@ -34,6 +34,7 @@ public class TestController extends TestCase {
 		ctrl.comingOut(0);
 		ctrl.setStatus(GAME_STATE.ROLL);
 		assertEquals(GAME_STATE.ROLL, ctrl.getStatus());
+		ctrl.comingOut(0);
 		ctrl.moveForward(ctrl.getFigureOnPos(0), 40);
 		ctrl.comingOut(0);
 		ctrl.moveForward(ctrl.getFigureOnPos(0), 41);
