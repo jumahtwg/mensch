@@ -16,7 +16,7 @@ public class TestController extends TestCase {
 	@Before
 	public void setUp() {
 		ctrl = new Controller();
-		ctrl.setPl(2);
+		ctrl.setPl(4);
 		ctrl.start();
 		
 
@@ -24,24 +24,23 @@ public class TestController extends TestCase {
 	@Test
 	public void test() throws NumberFormatException, IOException {
 		ctrl.inputPlayerCount(ctrl.getPl());
+		ctrl.comingOut(0);
+		ctrl.comingOut(0);
+		ctrl.comingOut(0);
+		ctrl.comingOut(0);
+		ctrl.comingOut(1);
 		for ( int i = 0; i < 100; i++) {
 			ctrl.doDice();
 		}
 		
-		assertEquals(2, ctrl.getPl()); 
-		assertEquals(2, ctrl.getAnzahlMitspieler());
+		assertEquals(4, ctrl.getPl()); 
+		assertEquals(4, ctrl.getAnzahlMitspieler());
 		assertEquals(4, Controller.getMaxspieler());
-		ctrl.comingOut(0);
+
+		ctrl.kickEnemyFigure(10);
 		ctrl.setStatus(GAME_STATE.ROLL);
 		assertEquals(GAME_STATE.ROLL, ctrl.getStatus());
-		ctrl.comingOut(0);
 		ctrl.moveForward(ctrl.getFigureOnPos(0), 40);
-		ctrl.comingOut(0);
-		ctrl.moveForward(ctrl.getFigureOnPos(0), 41);
-		ctrl.comingOut(0);
-		ctrl.moveForward(ctrl.getFigureOnPos(0), 42);
-		ctrl.comingOut(0);
-		ctrl.moveForward(ctrl.getFigureOnPos(0), 43);
 		ctrl.getPlayerFigures();
 		ctrl.getActivePlayer();
 		ctrl.getPgArray();
