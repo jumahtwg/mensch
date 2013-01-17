@@ -73,6 +73,7 @@ public class Controller extends Observable {
 		Figure enemy = pg.getFigureOnPosition(position);
 		enemy.resetWegLaenge();
 		enemy.hasPlayer().pushFigure(enemy);
+		
 	}
 
 	public void moveForward(Figure fig, int positions) {

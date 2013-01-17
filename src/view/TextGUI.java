@@ -137,6 +137,7 @@ public class TextGUI implements IObserver {
 			break;
 		}
 		
+		
 	}
 	public void println(String sg){
 		logger.info(sg );

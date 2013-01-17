@@ -319,6 +319,7 @@ class GamePaint extends JComponent {
 
     }
 
+    
     private void drawFigure(Graphics2D g2, int x, int y, Color color) {
 
 	g2.setColor(color);
