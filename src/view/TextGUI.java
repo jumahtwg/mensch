@@ -44,14 +44,14 @@ public class TextGUI implements IObserver {
 		
 	}
 	
-	private final static int wuerfelEINS = 1;
-	private final static int wuerfelZWEI = 2;
-	private final static int wuerfelDREI = 3;
-	private final static int wuerfelVIER = 4;
-	private final static int wuerfelFUENF = 5;
-	private final static int wuerfelSECHS = 6;
-	private final static String kante = " ------- ";
-	private final static String leer =  "         ";
+	private final static int WUERFELEINS = 1;
+	private final static int WUERFELZWEI = 2;
+	private final static int WUERFELDREI = 3;
+	private final static int WUERFELVIER = 4;
+	private final static int WUERFELFUENF = 5;
+	private final static int WUERFELSECHS = 6;
+	private final static String KANTE = " ------- ";
+	private final static String LEER =  "         ";
 	
 	private Logger logger = Logger.getLogger("view.TextGUI");
 
@@ -124,48 +124,48 @@ public class TextGUI implements IObserver {
 	public void printDice(int playerID, int value){
 		println("Player " + playerID + " Wuerfel: ");
 		switch (value){
-		case wuerfelEINS:
-			println(kante);
-			println(leer);
+		case WUERFELEINS:
+			println(KANTE);
+			println(LEER);
 			println("|   O   |");
-			println(leer); 
-			println(kante);
+			println(LEER); 
+			println(KANTE);
 			break;
 
-		case wuerfelZWEI:
-			println(kante);
+		case WUERFELZWEI:
+			println(KANTE);
 			println("|     O |");
-			println(leer);
+			println(LEER);
 			println("| O     |");
-			println(kante);
+			println(KANTE);
 			break;
-		case wuerfelDREI:
-			println(kante);
+		case WUERFELDREI:
+			println(KANTE);
 			println("|     O |");
 			println("|   O   |");
 			println("| O     |");
-			println(kante);
+			println(KANTE);
 			break;
-		case wuerfelVIER:
-			println(kante);
+		case WUERFELVIER:
+			println(KANTE);
 			println("| O   O |");
-			println(leer);
+			println(LEER);
 			println("| O   O |");
-			println(kante);
+			println(KANTE);
 			break;
-		case wuerfelFUENF:
-			println(kante);
+		case WUERFELFUENF:
+			println(KANTE);
 			println("| O   O |");
 			println("|   O   |");
 			println("| O   O |");
-			println(kante);
+			println(KANTE);
 			break;
-		case wuerfelSECHS:
-			println(kante);
+		case WUERFELSECHS:
+			println(KANTE);
 			println("| O   O |");
 			println("| O   O |");
 			println("| O   O |");
-			println(kante);
+			println(KANTE);
 			break;
 		}
 		

@@ -41,14 +41,14 @@ public class GUI extends JFrame implements IObserver {
 	private JTextField input;
 	private JTextField status;
 	
-	final private int width = 630;
-	final private  int height = 650;
+	private static final int WIDTH = 630;
+	private static final int HEIGHT = 650;
 	
-	final private int widthBg = 550;
-	final private  int heightBg = 550;
+    private static final int WIDTHBG = 550;
+	private static final int HEIGHTBG = 550;
 	
-	final private int widthRec = 50;
-	final private  int heightRec = 50;
+	private static final int WIDTHREC = 50;
+	private static final int HEIGHTREC = 50;
 	
 	private static final int NULL = 0;
 	private static final int EINS = 1;
@@ -58,7 +58,7 @@ public class GUI extends JFrame implements IObserver {
 	
 	
 	public GUI(Controller controller) {
-		super("Mensch ï¿½rger dich nicht");
+		super("Mensch ärger dich nicht");
 		
 		this.controller = controller;
 		
@@ -118,7 +118,7 @@ public class GUI extends JFrame implements IObserver {
 		getContentPane().add(panelSouth, BorderLayout.PAGE_END);
 		getContentPane().add(panelWest,BorderLayout.LINE_END);
 
-		setSize(width, height);
+		setSize(WIDTH, HEIGHT);
 		setResizable(false);
 		setVisible(true);		
 	}
@@ -247,19 +247,16 @@ public class GUI extends JFrame implements IObserver {
 				}
 			}
 
-//			 // Raster zeichnen
-//			 g2.setColor(Color.WHITE);
-//			 drawGrid(g2);
-//
-//			 // Koordinaten Zeichnen
-//			 g2.setColor(Color.GREEN);
-//			 drawCoord(g2);
+			 // Raster zeichnen
+			 g2.setColor(Color.WHITE);
+			 drawGrid(g2);
+
 
 		}
 
 		// Methode zum Zeichnen der Speilsteine
 		private void drawBackground(Graphics2D g2) {
-			g2.fillRect(0, 0, widthBg, heightBg);
+			g2.fillRect(0, 0, WIDTHBG, HEIGHTBG);
 		}
 
 		// Methode zum Zeichnen des Spielfeldes
@@ -303,7 +300,7 @@ public class GUI extends JFrame implements IObserver {
 					}
 				} else {
 					g2.setColor(Color.WHITE);
-					g2.fillRect(i, j, widthRec, heightRec);
+					g2.fillRect(i, j, WIDTHREC, HEIGHTREC);
 				}
 				k++;
 			}
@@ -349,7 +346,7 @@ public class GUI extends JFrame implements IObserver {
 						}
 					} else {
 						g2.setColor(Color.GRAY);
-						g2.fillRect(i, j, widthRec, heightRec);
+						g2.fillRect(i, j, WIDTHREC, HEIGHTREC);
 					}
 					p++;
 				}
@@ -412,26 +409,18 @@ public class GUI extends JFrame implements IObserver {
 
 		}
 
-//		private void drawGrid(Graphics2D g2) {
-//			for (int i = 0; i <= 550; i = i + 50) {
-//				for (int j = 0; j <= 550; j = j + 50) {
-//					g2.drawLine(i, j, 0, j);
-//				}
-//			}
-//			for (int i = 0; i <= 550; i = i + 50) {
-//				for (int j = 0; j <= 550; j = j + 50) {
-//					g2.drawLine(j, i, j, 0);
-//				}
-//			}
-//		}
-//
-//		private void drawCoord(Graphics2D g2) {
-//			for (int i = 0; i < 550; i = i + 50) {
-//				for (int j = 0; j < 550; j = j + 50) {
-//					g2.drawString(i + ":" + j, i, j + 50);
-//				}
-//			}
-//		}
+		private void drawGrid(Graphics2D g2) {
+			for (int i = 0; i <= 550; i = i + 50) {
+				for (int j = 0; j <= 550; j = j + 50) {
+					g2.drawLine(i, j, 0, j);
+				}
+			}
+			for (int i = 0; i <= 550; i = i + 50) {
+				for (int j = 0; j <= 550; j = j + 50) {
+					g2.drawLine(j, i, j, 0);
+				}
+			}
+		}
 
 		private void drawFigureID(Graphics2D g2, int x, int y, int k) {
 			int id = controller.getFigureOnPos(k).getFigureID();
@@ -444,7 +433,7 @@ public class GUI extends JFrame implements IObserver {
 		private void drawFigure(Graphics2D g2, int x, int y, Color color) {
 
 			g2.setColor(color);
-			g2.fillRect(x, y, widthRec, heightRec);
+			g2.fillRect(x, y, WIDTHREC, HEIGHTREC);
 
 		}
 	}

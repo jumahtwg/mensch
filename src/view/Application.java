@@ -7,7 +7,7 @@ import org.apache.log4j.PropertyConfigurator;
 import controller.Controller;
 
 
-public class Application {
+public final class Application {
 	
 	private Application(){};
     /**
