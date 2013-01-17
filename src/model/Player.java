@@ -1,5 +1,9 @@
 package model;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 
 import model.Dice;
@@ -23,10 +27,11 @@ public class Player {
 
 	private Deque<Figure> startStack = new ArrayDeque<Figure>();
 	private Figure[] pgFigureArray = new Figure[SPIELFIGUREN];
+	List<String> stackCoords = new ArrayList<String>();
 
 	public Player(int playerID) {
 		this.playerID = playerID;
-		for (int i = SPIELFIGUREN-1; i >= 0; i--) {
+		for (int i = SPIELFIGUREN - 1; i >= 0; i--) {
 			startStack.push(new Figure(i, this));
 		}
 		this.dice = new Dice();
@@ -46,16 +51,38 @@ public class Player {
 			break;
 		default:
 		}
-		
+
 	}
 
 	public int getPlayerID() {
 		return this.playerID;
 	}
 
+	public void addStackCoords() throws NumberFormatException, IOException {
+		FileReader fr = new FileReader(
+				"C:\\Temp\\EclipseWorkSpace\\mensch\\src\\model\\stackCoords.txt");
+		BufferedReader br = new BufferedReader(fr);
+
+		String zeile = null;
+		switch (this.playerID) {
+		case SPIELER1:
+			while ((zeile = br.readLine()) != null) {
+				if (zeile.contains("Spieler1")) {
+					StringTokenizer tokenizer = new StringTokenizer(zeile);
+					int i = Integer.parseInt(tokenizer.nextToken());
+					int j = Integer.parseInt(tokenizer.nextToken());
+					stackCoords.add(i + " " + j);
+				}
+			}
+		}
+	}
+	
+	public List<String> getStackCoords(){
+		return stackCoords;
+	}
 	public Figure popFigure() {
 		Figure tmp;
-		//Keine Figuren mehr im Startfeld!
+		// Keine Figuren mehr im Startfeld!
 		if (startStack.isEmpty()) {
 			return null;
 		}
@@ -83,10 +110,10 @@ public class Player {
 		}
 		return false;
 	}
-	
-	public boolean figureArrayEmpty(){
-		for(int i = 0; i< pgFigureArray.length; i++){
-			if(pgFigureArray[i] == null) {
+
+	public boolean figureArrayEmpty() {
+		for (int i = 0; i < pgFigureArray.length; i++) {
+			if (pgFigureArray[i] == null) {
 				continue;
 			} else {
 				return false;
@@ -98,7 +125,7 @@ public class Player {
 	public int getStackSize() {
 		return startStack.size();
 	}
-
+	
 	public int rolling() {
 		return dice.roll();
 	}
@@ -119,22 +146,22 @@ public class Player {
 			}
 		}
 	}
-	public void removeFigureFromActiveSoldiers(Figure fig){
+
+	public void removeFigureFromActiveSoldiers(Figure fig) {
 		pgFigureArray[fig.getFigureID()] = null;
 		return;
 	}
+
 	public Figure[] getPgFigureArray() {
 		return pgFigureArray;
 	}
-	public boolean isFigureAvailable(int figID){
-		if(figID > SPIELFIGUREN-1 || pgFigureArray[figID] == null){
+
+	public boolean isFigureAvailable(int figID) {
+		if (figID > SPIELFIGUREN - 1 || pgFigureArray[figID] == null) {
 			return false;
-		}else{
+		} else {
 			return true;
 		}
 	}
-	
-	public void hasFigure(Figure fig){
-		
-	}
+
 }

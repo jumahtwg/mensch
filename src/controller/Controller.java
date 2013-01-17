@@ -1,5 +1,7 @@
 package controller;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -31,7 +33,7 @@ public class Controller extends Observable {
 		this.pg = new Playground();
 	}
 
-	public void init() {
+	public void init() throws NumberFormatException, IOException {
 
 		Scanner in = new Scanner(System.in);
 		System.out.println("Anzahl der Spieler eingeben");
@@ -45,6 +47,13 @@ public class Controller extends Observable {
 		for (int i = 0; i < pl; i++) {
 			pg.addPlayer(new Player(i));
 		}
+		try {
+			pg.addCoordinates();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		runningGame(pl);
 	}
 
@@ -224,4 +233,35 @@ public class Controller extends Observable {
 	public Figure[] getPgArray(){
 		return pg.getFieldArray();
 	}
+	
+	public List<String> getFieldCoords(){
+		return pg.getFieldCoordnates();
+	}
+	
+	public List<String> getTargetCoords(int player){
+		return pg.getTargetCoordnates(player);
+	}
+	public List<String> getStackCoords() throws FileNotFoundException{
+		 System.out.println("tmp Stack list" + pg.getStackCoords());
+		return pg.getStackCoords();
+	}
+	public Figure getFigureOnPos(int k){
+		return pg.getFigureOnPosition(k);
+	}
+	
+	public int getStackSize(int playerID){
+		System.out.println("testdafadgdfg");
+		if(pg.getPlayer(playerID) == null)
+			return -1;
+		return pg.getPlayer(playerID).getStackSize();
+	}
+	
+	public int getAnzahlMitspieler(){
+		return pg.getAnzMit();
+	}
+	
+	public Figure[] getTargetFigureArray(int playerID){
+		return pg.getTargetArray(playerID);
+	}
+	
 }

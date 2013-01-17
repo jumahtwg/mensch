@@ -152,6 +152,8 @@ public class TextGUI implements IObserver {
 
 	public void updatePrintArray() {
 		printArrays(controller.getPgArray());
+		for(int i=0; i<4;i++)
+		    printArrays(controller.getTargetFigureArray(i));
 	}
 	
 	public void updatePrintFigures(){

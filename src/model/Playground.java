@@ -1,6 +1,15 @@
 package model;
 
+import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.net.URL;
 import java.util.*;
+
+
 import model.Figure;
 import model.Player;
 
@@ -11,33 +20,24 @@ public class Playground {
 	private static final int FELDLAENGE = 40;
 	private static final int ZIELFELDLAENGE = 4;
 
-	private List<Coordinate> fieldCoordinatelist = new ArrayList<Coordinate>();
+	private List<String> fieldCoordinatelist = new ArrayList<String>();
 	
 	private Figure target1[];
-	private List<Coordinate> target1Coordinatelist = new ArrayList<Coordinate>();
+	private List<String> target0Coordinatelist = new ArrayList<String>();
 
 	private Figure target2[];
-	private List<Coordinate> target2Coordinatelist = new ArrayList<Coordinate>();
+	private List<String> target1Coordinatelist = new ArrayList<String>();
 
 	private Figure target3[];
-	private List<Coordinate> target3Coordinatelist = new ArrayList<Coordinate>();
+	private List<String> target2Coordinatelist = new ArrayList<String>();
 
 	private Figure target4[];
-	private List<Coordinate> target4Coordinatelist = new ArrayList<Coordinate>();
+	private List<String> target3Coordinatelist = new ArrayList<String>();
 
-	
+	private List<String> stackCoords = new ArrayList<String>();
 	private List<Player> players = new LinkedList<Player>();
 	
 	
-	private class Coordinate{
-		private int x,y;
-		
-		public Coordinate(int x, int y){
-			this.x = x;
-			this.y = y;
-		}
-
-	}
 	public Playground() {
 		this.fieldArray = new Figure[FELDLAENGE];
 		this.target1 = new Figure[ZIELFELDLAENGE];
@@ -46,101 +46,97 @@ public class Playground {
 		this.target4 = new Figure[ZIELFELDLAENGE];
 		this.anzMit = 0;
 	}
-
-	public void addCoordinates(){
+	
+	public void addCoordinates() throws FileNotFoundException{
 		// Feldkoordinaten
-		fieldCoordinatelist.add(new Coordinate(75,275));
-		fieldCoordinatelist.add(new Coordinate(125,275));
-		fieldCoordinatelist.add(new Coordinate(175,275));
-		fieldCoordinatelist.add(new Coordinate(225,275));
-		fieldCoordinatelist.add(new Coordinate(275,275));
-		fieldCoordinatelist.add(new Coordinate(275,225));
-		fieldCoordinatelist.add(new Coordinate(275,175));
-		fieldCoordinatelist.add(new Coordinate(275,125));
-		fieldCoordinatelist.add(new Coordinate(275,50));
-		fieldCoordinatelist.add(new Coordinate(325,50));
-		fieldCoordinatelist.add(new Coordinate(375,50));
-		fieldCoordinatelist.add(new Coordinate(375,125));
-		fieldCoordinatelist.add(new Coordinate(375,175));
-		fieldCoordinatelist.add(new Coordinate(375,225));
-		fieldCoordinatelist.add(new Coordinate(375,275));
-		fieldCoordinatelist.add(new Coordinate(375,275));
-		fieldCoordinatelist.add(new Coordinate(425,275));
-		fieldCoordinatelist.add(new Coordinate(475,275));
-		fieldCoordinatelist.add(new Coordinate(525,275));
-		fieldCoordinatelist.add(new Coordinate(575,275));
-		fieldCoordinatelist.add(new Coordinate(575,325));
-		fieldCoordinatelist.add(new Coordinate(575,375));
-		fieldCoordinatelist.add(new Coordinate(525,375));
-		fieldCoordinatelist.add(new Coordinate(475,375));
-		fieldCoordinatelist.add(new Coordinate(425,375));
-		fieldCoordinatelist.add(new Coordinate(375,375));
-		fieldCoordinatelist.add(new Coordinate(375,425));
-		fieldCoordinatelist.add(new Coordinate(375,475));
-		fieldCoordinatelist.add(new Coordinate(375,525));
-		fieldCoordinatelist.add(new Coordinate(375,575));
-		fieldCoordinatelist.add(new Coordinate(325,575));
-		fieldCoordinatelist.add(new Coordinate(275,575));
-		fieldCoordinatelist.add(new Coordinate(275,525));
-		fieldCoordinatelist.add(new Coordinate(275,475));
-		fieldCoordinatelist.add(new Coordinate(275,425));
-		fieldCoordinatelist.add(new Coordinate(275,375));
-		fieldCoordinatelist.add(new Coordinate(225,375));
-		fieldCoordinatelist.add(new Coordinate(175,375));
-		fieldCoordinatelist.add(new Coordinate(125,375));
-		fieldCoordinatelist.add(new Coordinate(75,375));
-		fieldCoordinatelist.add(new Coordinate(75,325));
+	    URL path = ClassLoader.getSystemResource("fieldCoords.txt");
+
+
+		FileReader fr = new FileReader("/home/cyrus/workspace/mensch/src/model/fieldCoords.txt");
+		FileReader fr2 = new FileReader("/home/cyrus/workspace/mensch/src/model/stackCoords.txt");
+		FileReader fr3 = new FileReader("/home/cyrus/workspace/mensch/src/model/targetCoords.txt");
+
+		BufferedReader br = new BufferedReader(fr);
+		BufferedReader br2 = new BufferedReader(fr2);
+		BufferedReader br3 = new BufferedReader(fr3);
+
+			
 		
-		//TargetfeldKoordinaten
-		target1Coordinatelist.add(new Coordinate(125,325));
-		target1Coordinatelist.add(new Coordinate(175,325));
-		target1Coordinatelist.add(new Coordinate(225,325));
-		target1Coordinatelist.add(new Coordinate(275,325));
 		
-		target2Coordinatelist.add(new Coordinate(325,125));
-		target2Coordinatelist.add(new Coordinate(325,175));
-		target2Coordinatelist.add(new Coordinate(325,225));
-		target2Coordinatelist.add(new Coordinate(325,275));
+		String zeile = null;
+		try {
+			while((zeile = br.readLine()) != null){
+				fieldCoordinatelist.add(zeile);
+			}
+
+			while((zeile = br2.readLine()) != null){
+				if(zeile.contains("Spieler1")){
+					stackCoords.add(zeile);
+				}
+				if(zeile.contains("Spieler2")){
+					stackCoords.add(zeile);
+					
+				}
+				if(zeile.contains("Spieler3")){
+					stackCoords.add(zeile);
+					
+				}
+				if(zeile.contains("Spieler4")){
+					stackCoords.add(zeile);
+				}
+			}
+			while((zeile = br3.readLine()) != null){
+				if(zeile.contains("Spieler1")){
+					target0Coordinatelist.add(zeile);
+				}
+				if(zeile.contains("Spieler2")){
+					target1Coordinatelist.add(zeile);
+					
+				}
+				if(zeile.contains("Spieler3")){
+					target2Coordinatelist.add(zeile);
+					
+				}
+				if(zeile.contains("Spieler4")){
+					target3Coordinatelist.add(zeile);
+				}
+			}
+			
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
 		
-		target3Coordinatelist.add(new Coordinate(525,325));
-		target3Coordinatelist.add(new Coordinate(475,325));
-		target3Coordinatelist.add(new Coordinate(425,325));
-		target3Coordinatelist.add(new Coordinate(375,325));
 		
-		target4Coordinatelist.add(new Coordinate(325,525));
-		target4Coordinatelist.add(new Coordinate(325,475));
-		target4Coordinatelist.add(new Coordinate(325,425));
-		target4Coordinatelist.add(new Coordinate(325,375));
 	}
 	
-	public int[] getFieldCoordnate(int index){
-		int[] array = new int[2];
-		array[0]= fieldCoordinatelist.get(index).x;
-		array[1]= fieldCoordinatelist.get(index).y;
-		
-		return array;
+	public List<String> getFieldCoordnates(){
+		return fieldCoordinatelist;
 	}
 	
-	public int[] getTargetCoordnate(int playerID,int index){
-		int[] array = new int[2];
+	public List<String> getTargetCoordnates(int playerID){
 		switch(playerID){
 		case Player.SPIELER1:
-			array[0]= target1Coordinatelist.get(index).x;
-			array[1]= target1Coordinatelist.get(index).y;
+			return target0Coordinatelist;
 		case Player.SPIELER2:
-			array[0]= target2Coordinatelist.get(index).x;
-			array[1]= target2Coordinatelist.get(index).y;
+			return target1Coordinatelist;
+
 		case Player.SPIELER3:
-			array[0]= target3Coordinatelist.get(index).x;
-			array[1]= target3Coordinatelist.get(index).y;
+			return target2Coordinatelist;
+
 		case Player.SPIELER4:
-			array[0]= target4Coordinatelist.get(index).x;
-			array[1]= target4Coordinatelist.get(index).y;
+			return target3Coordinatelist;
 		}
-		
-		return array;
+		return null;
 	}
 	
+	public List<String> getStackCoords(){
+		return stackCoords;
+	}
 	public void addPlayer(Player newPlayer){		
 		players.add(newPlayer);
 		anzMit++;
@@ -174,7 +170,7 @@ public class Playground {
 	}	
 	
 	public Player getPlayer(int playerID){
-	    return (players.get(playerID)) ;
+	    return players.get(playerID) ;
 	}
 	public Figure[] getFieldArray(){
 		return fieldArray;
@@ -212,5 +208,4 @@ public class Playground {
 			break;
 		}
 	}
-	
 }
