@@ -16,6 +16,7 @@ public class Controller extends Observable {
 	private Playground pg;
 	private int activePlayerID;
 	private int roll;
+	private static int pl;
 	private static final int MAXSPIELER = 4;
 	private static final int MAXGEFAHRENEWEGLAENGE = 39;
 	private static final int GEWUERFELTESECHS = 6;
@@ -35,15 +36,7 @@ public class Controller extends Observable {
 
 	public void init() throws NumberFormatException, IOException {
 
-		Scanner in = new Scanner(System.in);
-		System.out.println("Anzahl der Spieler eingeben");
-		int pl = in.nextInt();
-		System.out.println("pl ist " + pl);
-		
-		while (pl > MAXSPIELER ) {
-			System.out.println("Maximale Spieleranzahl: 4, bitte eingeben.");
-			pl = in.nextInt();
-		}
+
 		for (int i = 0; i < pl; i++) {
 			pg.addPlayer(new Player(i));
 		}
@@ -55,6 +48,18 @@ public class Controller extends Observable {
 		}
 		
 		runningGame(pl);
+	}
+
+	public static int getPl() {
+		return pl;
+	}
+
+	public static int getMaxspieler() {
+		return MAXSPIELER;
+	}
+
+	public static void setPl(int pl) {
+		Controller.pl = pl;
 	}
 
 	public void comingOut(int playerID) {

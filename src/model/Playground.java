@@ -52,9 +52,9 @@ public class Playground {
 	    URL path = ClassLoader.getSystemResource("fieldCoords.txt");
 
 
-		FileReader fr = new FileReader("/home/cyrus/workspace/mensch/src/model/fieldCoords.txt");
-		FileReader fr2 = new FileReader("/home/cyrus/workspace/mensch/src/model/stackCoords.txt");
-		FileReader fr3 = new FileReader("/home/cyrus/workspace/mensch/src/model/targetCoords.txt");
+		FileReader fr = new FileReader("fieldCoords.txt");
+		FileReader fr2 = new FileReader("stackCoords.txt");
+		FileReader fr3 = new FileReader("targetCoords.txt");
 
 		BufferedReader br = new BufferedReader(fr);
 		BufferedReader br2 = new BufferedReader(fr2);
