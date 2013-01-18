@@ -58,7 +58,7 @@ public class GUI extends JFrame implements IObserver {
 	
 	
 	public GUI(Controller controller) {
-		super("Mensch ärger dich nicht");
+		super("Mensch ï¿½rger dich nicht");
 		
 		this.controller = controller;
 		
@@ -76,7 +76,7 @@ public class GUI extends JFrame implements IObserver {
 		JPanel panelSouth = new JPanel();
 		panelSouth.setLayout(new GridLayout(2, 2));
 		
-		JButton wuerfel = new JButton("Würfel");
+		JButton wuerfel = new JButton("Wï¿½rfel");
 		wuerfel.addActionListener(buttons);
 		
 		JButton enter = new JButton("Enter");
@@ -130,7 +130,7 @@ public class GUI extends JFrame implements IObserver {
 		int c = controller.getActivePlayer().getPlayerID();
 		switch(c){
 		case NULL:
-			output.setText("Grüner Spieler ist dran!");
+			output.setText("Grï¿½ner Spieler ist dran!");
 			break;
 		case EINS:
 			output.setText("Gelber Spieler ist dran!");
@@ -142,7 +142,7 @@ public class GUI extends JFrame implements IObserver {
 		    output.setText("Roter Spieler ist dran!");
 			break;
 		default:
-			output.setText("Grüner Spieler ist dran!");
+			output.setText("Grï¿½ner Spieler ist dran!");
 			break;
 		}
 	}
@@ -161,7 +161,6 @@ public class GUI extends JFrame implements IObserver {
 	}
 	
 	public void updateChooseFigure() {
-		
 		
 	}
 	
@@ -184,7 +183,7 @@ public class GUI extends JFrame implements IObserver {
 
 		public void actionPerformed(ActionEvent e) {
 			if (controller.getStatus() == GAME_STATE.ROLL){
-				if (e.getActionCommand().equals("Würfel")) {
+				if (e.getActionCommand().equals("Wï¿½rfel")) {
 					controller.doDice();
 					status.setText("Es wurde gewuerfelt:" + controller.getRoll());
 				}
