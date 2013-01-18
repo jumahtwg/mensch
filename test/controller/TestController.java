@@ -25,13 +25,30 @@ public class TestController extends TestCase {
 	public void test() throws NumberFormatException, IOException {
 		ctrl.inputPlayerCount(ctrl.getPl());
 		ctrl.comingOut(0);
-		ctrl.comingOut(0);
-		ctrl.comingOut(0);
-		ctrl.comingOut(0);
 		ctrl.comingOut(1);
+		ctrl.moveForward(ctrl.getFigureOnPos(10), 0);
+		ctrl.moveForward(ctrl.getFigureOnPos(0), 41);
+		ctrl.comingOut(0);
+		ctrl.moveForward(ctrl.getFigureOnPos(0), 40);
+		ctrl.comingOut(0);
+		ctrl.moveForward(ctrl.getFigureOnPos(0), 42);
+		ctrl.comingOut(0);
+		ctrl.moveForward(ctrl.getFigureOnPos(0), 43);
+
 		for ( int i = 0; i < 100; i++) {
 			ctrl.doDice();
 		}
+		ctrl.setStatus(GAME_STATE.CHOOSE_FIG);
+		for ( int i = 0; i < 100; i++) {
+			ctrl.doDice();
+		}
+		ctrl.setRoll(6);
+		ctrl.incrementPlayerID();
+		ctrl.setRoll(5);
+		ctrl.setActivePlayerID(3);
+		ctrl.incrementPlayerID();
+		ctrl.setPickFigure(10);
+		
 		
 		assertEquals(4, ctrl.getPl()); 
 		assertEquals(4, ctrl.getAnzahlMitspieler());
@@ -40,7 +57,10 @@ public class TestController extends TestCase {
 		ctrl.kickEnemyFigure(10);
 		ctrl.setStatus(GAME_STATE.ROLL);
 		assertEquals(GAME_STATE.ROLL, ctrl.getStatus());
-		ctrl.moveForward(ctrl.getFigureOnPos(0), 40);
+		
+		
+		
+		
 		ctrl.getPlayerFigures();
 		ctrl.getActivePlayer();
 		ctrl.getPgArray();
