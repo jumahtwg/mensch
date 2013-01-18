@@ -10,6 +10,12 @@ import observer.Observable;
 
 public class Controller extends Observable {
 
+	/*
+	 * @author juschnei, marisser
+	 * 
+	 */
+	
+	// zeigt an in Welchem Status das Spiel ist, um die gewünschte Aktionen auszuführen
 	public enum GAME_STATE {
 		CHOOSE_FIG, ROLL, CHOOSE_PLAYER_COUNT, GAME_STOP
 	}
@@ -33,10 +39,12 @@ public class Controller extends Observable {
 	private static final int ZWEI = 2;
 	private static final int DREI = 3;
 
+
 	public Controller() {
 		this.pg = new Playground();
 	}
 
+	// Versuche die Coordinaten .txt Dateien einzulesen und lasse die Anzahl der Spieler auswählen
 	public void start() {
 		try {
 			pg.addCoordinates();
@@ -47,6 +55,14 @@ public class Controller extends Observable {
 		notifyChoosePlayerCount();
 	}
 
+	/*
+	 * Füge Anzahl der Spieler zum Spielfel hinzu.
+	 * setze aktueller Spieler auf 0.
+	 * zeichne das Spielfeld
+	 * zeichne alle Spieler + Targetfelder + Stackfelder
+	 * setze "status" auf ROLL und lasse ersten spieler würfeln
+	 */
+	
 	public void inputPlayerCount(int playerCount) {
 		pl = playerCount;
 		for (int i = 0; i < playerCount; i++) {
@@ -60,6 +76,10 @@ public class Controller extends Observable {
 		notifyObserversRoll();
 	}
 
+	/*
+	 * erhöhe Spieleranzahl um 1, wenn AnzahlSpieler erreicht, fange wieder bei Spieler 0 an
+	 */
+	
 	private void incrementPlayerID() {
 		if (roll == GEWUERFELTESECHS) {
 			return;
@@ -71,11 +91,18 @@ public class Controller extends Observable {
 		}
 	}
 
+	/*
+	 * lasse erste Zahl würfeln
+	 * zeichne Spielfeld neu
+	 * zeichne Würfel
+	 */
+	
 	public void doDice() {
 		roll = pg.getPlayer(activePlayerID).rolling();
 		notifyShowGameFrame();
 		notifyObserversPrintDice();
 
+		
 		if ((roll != GEWUERFELTESECHS && pg.getPlayer(activePlayerID)
 				.getStackSize() == VORHANDENEFIGUREN)
 				|| (roll != GEWUERFELTESECHS
@@ -147,18 +174,36 @@ public class Controller extends Observable {
 		notifyObserversRoll();
 	}
 
+	/*
+	 * hole aktuelle Spieleranzahl
+	 */
+	
 	public int getPl() {
 		return pl;
 	}
 
+	/*
+	 * hole maximale Spieleranzahl
+	 */
+	
 	public static int getMaxspieler() {
 		return MAXSPIELER;
 	}
 
+	/*
+	 * setze aktuelle Spieleranzahl
+	 */
+	
 	public void setPl(int pl) {
 		this.pl = pl;
 	}
 
+	/*
+	 * Spieler hat "6". Eigenes erstes Startfeld wird abgerufen
+	 * Figur wird von eigenen Stack geholt
+	 * Falls Feld von andere Figur beleget, so schmeise diese, falls nicht, setze Figur auf Feld
+	 */
+	
 	public void comingOut(int playerID) {
 		int startField = pg.getPlayer(playerID).getStartField();
 		Figure newFig = pg.getPlayer(playerID).popFigure();
@@ -171,6 +216,11 @@ public class Controller extends Observable {
 		pg.setFigureOnPosition(newFig, startField);
 	}
 
+	/*
+	 * wenn 2 Figuren auf eine postition sind/wollen, dann setze Weglaenge der Figur auf 0 und 
+	 * lege geschmissene Figur zurück auf Stack
+	 */
+	
 	public void kickEnemyFigure(int position) {
 		Figure enemy = pg.getFigureOnPosition(position);
 		enemy.resetWegLaenge();
@@ -178,14 +228,17 @@ public class Controller extends Observable {
 
 	}
 
+	/*
+	 * setze Figur um die laenge "positions" nach vorne
+	 */
 	public void moveForward(Figure fig, int positions) {
 		int oldPos = fig.getFigurePos();
 		int newPos = oldPos + positions;
 		fig.setWeglaenge(positions);
 
 		/**
-		 * wenn Figur mit aktuellen Wurf ueber eine Runde gelaufen ist -> store
-		 * into Array
+		 * wenn Figur mit aktuellen Wurf ueber eine Runde gelaufen ist, store into Array
+		 * Falls Zielfeld ueberschritten, dann lass Spielfigur an ihrer Stelle
 		 **/
 
 		if (fig.getWeglaenge() > MAXGEFAHRENEWEGLAENGE) {
@@ -222,6 +275,11 @@ public class Controller extends Observable {
 
 		}
 
+		/*
+		 * Wenn Spielerfigur am Ende des Feldes und WegLaenge kleiner als laenge des Feldes,
+		 * dann setze figur an Stelle 0 des Spielfeldes 
+		 */
+		
 		if (newPos > MAXGEFAHRENEWEGLAENGE) {
 			newPos = newPos % MAXGEFAHRENEWEGLAENGE;
 			fig.setFigurePos(newPos);
@@ -265,58 +323,109 @@ public class Controller extends Observable {
 	}
 
 	public void update() {
-		// TODO Auto-generated method stub
-
+	
 	}
 
+	/*
+	 * hole den aktuell spielenden Spieler
+	 */
+	
 	public Player getActivePlayer() {
 		return pg.getPlayer(activePlayerID);
 	}
 
+	/*
+	 * hole den aktuell gewürfelten Wert
+	 */
+	
 	public int getRoll() {
 		return roll;
 	}
 
+	/*
+	 * Gebe Feld zurück, mit allen Spielfiguren eines Spielers (auf Stack)
+	 */
+	
 	public Figure[] getPlayerFigures() {
 		return pg.getPlayer(activePlayerID).getPgFigureArray();
 	}
 
+	/*
+	 * Gebe Spielfeld zurück, mit allen Figuren
+	 */
+	
 	public Figure[] getPgArray() {
 		return pg.getFieldArray();
 	}
 
+	/*
+	 * Liste mit Strings, wo alle x, y Koordinaten des Spielfelds hinterlegt sind
+	 */
+	
 	public List<String> getFieldCoords() {
 		return pg.getFieldCoordnates();
 	}
-
+	
+	/*
+	 * Liste mit Strings, wo alle x, y Koordinaten des Targetfelds hinterlegt sind
+	 */
+	
 	public List<String> getTargetCoords(int player) {
 		return pg.getTargetCoordnates(player);
 	}
 
+	/*
+	 * Liste mit Strings, wo alle x, y Koordinaten des Stackfeldes hinterlegt sind
+	 */
+	
 	public List<String> getStackCoords() throws FileNotFoundException {
 		return pg.getStackCoords();
 	}
 
+	/*
+	 * Hole Figur an stelle k
+	 */
+	
 	public Figure getFigureOnPos(int k) {
 		return pg.getFigureOnPosition(k);
 	}
 
+	/*
+	 * gebe Anzahl vorhandenen Figuren auf Stack von aktuellen Spieler zurück
+	 */
+	
 	public int getStackSize(int playerID) {
 		return pg.getPlayer(playerID).getStackSize();
 	}
 
+	/*
+	 * gebe Anzahl Mitspieler zurück
+	 */
+	
 	public int getAnzahlMitspieler() {
 		return pl;
 	}
 
+	/*
+	 * gebe von Spieler das Zielfeld-Array zurück
+	 */
+	
 	public Figure[] getTargetFigureArray(int playerID) {
 		return pg.getTargetArray(playerID);
 	}
 
+	/*
+	 * Hole den aktuellen Spielstatus
+	 */
+	
 	public GAME_STATE getStatus() {
 		return status;
 	}
 
+	/*
+	 * setze den aktuellen Spielstatus
+	 */
+	
 	public void setStatus(GAME_STATE status) {
 		this.status = status;
 	}

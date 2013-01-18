@@ -30,11 +30,18 @@ public class Player {
 
 	public Player(int playerID) {
 		this.playerID = playerID;
+		/*
+		 * gebe der playerID "4" Spielfiguren und pushe sie auf Stack
+		 */
 		for (int i = SPIELFIGUREN - 1; i >= 0; i--) {
 			startStack.push(new Figure(i, this));
 		}
 		this.dice = new Dice();
 
+		/*
+		 * Startfeld der einzelnen Spieler wird initialisiert
+		 */
+		
 		switch (playerID) {
 		case SPIELER1:
 			this.startField = STARTFELDSPIELER1;
@@ -53,33 +60,27 @@ public class Player {
 
 	}
 
+	/*
+	 * Hole aktuelle SpielerZahl
+	 */
+	
 	public int getPlayerID() {
 		return this.playerID;
 	}
 
-	public void addStackCoords() throws IOException  {
-		FileReader fr = new FileReader(
-				"C:\\Temp\\EclipseWorkSpace\\mensch\\src\\model\\stackCoords.txt");
-		BufferedReader br = new BufferedReader(fr);
 
-		String zeile = null;
-		switch (this.playerID) {
-		case SPIELER1:
-			while ((zeile = br.readLine()) != null) {
-				if (zeile.contains("Spieler1")) {
-					StringTokenizer tokenizer = new StringTokenizer(zeile);
-					int i = Integer.parseInt(tokenizer.nextToken());
-					int j = Integer.parseInt(tokenizer.nextToken());
-					stackCoords.add(i + " " + j);
-				}
-			}
-		}
-		br.close();
-	}
+	/*
+	 * gebe List von Strings mit allen Stack koordinaten zurück
+	 */
 	
 	public List<String> getStackCoords(){
 		return stackCoords;
 	}
+	
+	/*
+	 * Hole Figur vom eigenen Stack herunter
+	 */
+	
 	public Figure popFigure() {
 		Figure tmp;
 		// Keine Figuren mehr im Startfeld!
@@ -87,11 +88,14 @@ public class Player {
 			return null;
 		}
 		tmp = startStack.pop();
-		// Figur " + tmp.getFigureID() + " wurde vom Stack geholt!
 		pgFigureArray[tmp.getFigureID()] = tmp;
 		return tmp;
 	}
 
+	/*
+	 * lege Figur zurück auf Stack, und setze Weglaenge wieder auf 0
+	 */
+	
 	public void pushFigure(Figure figure) {
 		if (startStack.size() == MAXSPIELFIGUREN) {
 			return;
@@ -102,6 +106,9 @@ public class Player {
 		return;
 	}
 
+	/*
+	 * prüfe ob Stack leer ist, falls ja => true
+	 */
 	public boolean figureStackEmpty() {
 		if (startStack.isEmpty()) {
 			return true;
