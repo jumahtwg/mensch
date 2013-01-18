@@ -162,6 +162,7 @@ public class GUI extends JFrame implements IObserver {
 	
 	public void updateChooseFigure() {
 		
+		
 	}
 	
 	public void inputChoosePlayerCount(){
@@ -247,7 +248,7 @@ public class GUI extends JFrame implements IObserver {
 			}
 
 			 // Raster zeichnen
-			 g2.setColor(Color.WHITE);
+			 g2.setColor(Color.BLACK);
 			 drawGrid(g2);
 
 
