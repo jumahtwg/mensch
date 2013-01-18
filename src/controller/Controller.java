@@ -14,8 +14,8 @@ public class Controller extends Observable {
 	 * @author juschnei, marisser
 	 */
 
-	// zeigt an in Welchem Status das Spiel ist, um die gewünschte Aktionen
-	// auszuführen
+	// zeigt an in Welchem Status das Spiel ist, um die gewuenschte Aktionen
+	// auszufuehren
 	public enum GAME_STATE {
 		CHOOSE_FIG, ROLL, CHOOSE_PLAYER_COUNT, GAME_STOP
 	}
@@ -44,7 +44,7 @@ public class Controller extends Observable {
 	}
 
 	// Versuche die Coordinaten .txt Dateien einzulesen und lasse die Anzahl der
-	// Spieler auswählen
+	// Spieler auswaehlen
 	public void start() {
 		try {
 			pg.addCoordinates();
@@ -56,9 +56,9 @@ public class Controller extends Observable {
 	}
 
 	/*
-	 * Füge Anzahl der Spieler zum Spielfel hinzu. setze aktueller Spieler auf
+	 * Fuege Anzahl der Spieler zum Spielfel hinzu. setze aktueller Spieler auf
 	 * 0. zeichne das Spielfeld zeichne alle Spieler + Targetfelder +
-	 * Stackfelder setze "status" auf ROLL und lasse ersten spieler würfeln
+	 * Stackfelder setze "status" auf ROLL und lasse ersten spieler wuerfeln
 	 */
 
 	public void inputPlayerCount(int playerCount) {
@@ -75,11 +75,11 @@ public class Controller extends Observable {
 	}
 
 	/*
-	 * erhöhe Spieleranzahl um 1, wenn AnzahlSpieler erreicht, fange wieder bei
+	 * erhoehe Spieleranzahl um 1, wenn AnzahlSpieler erreicht, fange wieder bei
 	 * Spieler 0 an
 	 */
 
-	private void incrementPlayerID() {
+	public void incrementPlayerID() {
 		if (roll == GEWUERFELTESECHS) {
 			return;
 		}
@@ -89,9 +89,23 @@ public class Controller extends Observable {
 			activePlayerID = 0;
 		}
 	}
+	
+	/*
+	 * setze aktuelle SpielerID auf activeSpielerID
+	 */
+	public void setActivePlayerID(int activePlayerID) {
+		this.activePlayerID = activePlayerID;
+	}
 
 	/*
-	 * lasse erste Zahl würfeln zeichne Spielfeld neu zeichne Würfel
+	 * setze Wuerfel auf beliebige Zahl
+	 */
+	public void setRoll(int roll) {
+		this.roll = roll;
+	}
+	
+	/*
+	 * lasse erste Zahl wuerfeln zeichne Spielfeld neu zeichne Wuerfel
 	 */
 
 	public void doDice() {
@@ -214,7 +228,7 @@ public class Controller extends Observable {
 
 	/*
 	 * wenn 2 Figuren auf eine postition sind/wollen, dann setze Weglaenge der
-	 * Figur auf 0 und lege geschmissene Figur zurück auf Stack
+	 * Figur auf 0 und lege geschmissene Figur zurueck auf Stack
 	 */
 
 	public void kickEnemyFigure(int position) {
@@ -341,7 +355,7 @@ public class Controller extends Observable {
 	}
 
 	/*
-	 * hole den aktuell gewürfelten Wert
+	 * hole den aktuell gewuerfelten Wert
 	 */
 
 	public int getRoll() {
@@ -349,7 +363,7 @@ public class Controller extends Observable {
 	}
 
 	/*
-	 * Gebe Feld zurück, mit allen Spielfiguren eines Spielers (auf Stack)
+	 * Gebe Feld zurueck, mit allen Spielfiguren eines Spielers (auf Stack)
 	 */
 
 	public Figure[] getPlayerFigures() {
@@ -357,7 +371,7 @@ public class Controller extends Observable {
 	}
 
 	/*
-	 * Gebe Spielfeld zurück, mit allen Figuren
+	 * Gebe Spielfeld zurueck, mit allen Figuren
 	 */
 
 	public Figure[] getPgArray() {
@@ -400,7 +414,7 @@ public class Controller extends Observable {
 	}
 
 	/*
-	 * gebe Anzahl vorhandenen Figuren auf Stack von aktuellen Spieler zurück
+	 * gebe Anzahl vorhandenen Figuren auf Stack von aktuellen Spieler zurueck
 	 */
 
 	public int getStackSize(int playerID) {
@@ -408,7 +422,7 @@ public class Controller extends Observable {
 	}
 
 	/*
-	 * gebe Anzahl Mitspieler zurück
+	 * gebe Anzahl Mitspieler zurueck
 	 */
 
 	public int getAnzahlMitspieler() {
@@ -416,7 +430,7 @@ public class Controller extends Observable {
 	}
 
 	/*
-	 * gebe von Spieler das Zielfeld-Array zurück
+	 * gebe von Spieler das Zielfeld-Array zurueck
 	 */
 
 	public Figure[] getTargetFigureArray(int playerID) {
