@@ -169,12 +169,14 @@ public class Controller extends Observable {
 			} else {
 				status = GAME_STATE.CHOOSE_FIG;
 				notifyChooseFigure();
+				notifyObserversPrintActiveFigures();
 				return;
 
 			}
 		} else if (roll != GEWUERFELTESECHS) {
 			status = GAME_STATE.CHOOSE_FIG;
 			notifyChooseFigure();
+			notifyObserversPrintActiveFigures();
 			return;
 		}
 		incrementPlayerID();
@@ -292,6 +294,7 @@ public class Controller extends Observable {
 			}
 		} else {
 			notifyChooseFigure();
+			notifyObserversPrintActiveFigures();
 
 		}
 
@@ -320,6 +323,7 @@ public class Controller extends Observable {
 						.hasPlayer()) {
 			/** waehle andere Figur zum Laufen **/
 			notifyChooseFigure();
+			notifyObserversPrintActiveFigures();
 			return;
 
 		}
