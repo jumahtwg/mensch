@@ -116,6 +116,7 @@ public class Player {
 		return false;
 	}
 
+	
 	public boolean figureArrayEmpty() {
 		for (int i = 0; i < pgFigureArray.length; i++) {
 			if (pgFigureArray[i] == null) {
@@ -127,22 +128,37 @@ public class Player {
 		return true;
 	}
 
+	/*
+	 * Hole die Groeße des SpielerStacks
+	 */
 	public int getStackSize() {
 		return startStack.size();
 	}
 	
+	/*
+	 * Würfle
+	 */
 	public int rolling() {
 		return dice.roll();
 	}
 
+	/*
+	 * Hole Startposition des Spielers
+	 */
 	public int getStartField() {
 		return this.startField;
 	}
 
+	/*
+	 * Hole Figur an Stelle figureID
+	 */
 	public Figure getFigure(int figureID) {
 		return pgFigureArray[figureID];
 	}
 
+	/*
+	 * setze Figur in targetfeld
+	 */
 	public void storeFigure(Figure fig) {
 		for (int i = 0; i < pgFigureArray.length; i++) {
 			if (pgFigureArray[i] == null) {
@@ -152,15 +168,24 @@ public class Player {
 		}
 	}
 
+	/*
+	 * Figur vom Spielfeld löschen
+	 */
 	public void removeFigureFromActiveSoldiers(Figure fig) {
 		pgFigureArray[fig.getFigureID()] = null;
 		return;
 	}
 
+	/*
+	 * gebe feld mit alle Figuren zurück
+	 */
 	public Figure[] getPgFigureArray() {
 		return pgFigureArray;
 	}
 
+	/*
+	 * gülte Spielfigur nummer überprüfen
+	 */
 	public boolean isFigureAvailable(int figID) {
 		if (figID > SPIELFIGUREN - 1 || pgFigureArray[figID] == null){
 			return false;

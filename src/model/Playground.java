@@ -34,7 +34,9 @@ public class Playground {
 	private List<String> stackCoords = new ArrayList<String>();
 	private List<Player> players = new LinkedList<Player>();
 	
-	
+	/*
+	 * initialisiere Spielfeld
+	 */
 	public Playground() {
 		this.fieldArray = new Figure[FELDLAENGE];
 		this.target1 = new Figure[ZIELFELDLAENGE];
@@ -44,6 +46,9 @@ public class Playground {
 		this.anzMit = 0;
 	}
 	
+	/*
+	 * lade alle Koordinaten des Spielfeldes ein (fuer GUI)
+	 */
 	public void addCoordinates() throws FileNotFoundException{
 		// Feldkoordinaten
 
@@ -61,10 +66,16 @@ public class Playground {
 		
 		String zeile = null;
 		try {
+			/*
+			 * lese alle Spielfeld Koordinaten ein
+			 */
 			while((zeile = br.readLine()) != null){
 				fieldCoordinatelist.add(zeile);
 			}
 
+			/*
+			 * lese Stack koordianten der Spieler ein
+			 */
 			while((zeile = br2.readLine()) != null){
 				if(zeile.contains("Spieler1")){
 					stackCoords.add(zeile);
@@ -81,6 +92,10 @@ public class Playground {
 					stackCoords.add(zeile);
 				}
 			}
+			
+			/*
+			 * lese alle target Koordinaten der Spieler ein
+			 */
 			while((zeile = br3.readLine()) != null){
 				if(zeile.contains("Spieler1")){
 					target0Coordinatelist.add(zeile);
@@ -108,10 +123,15 @@ public class Playground {
 		
 	}
 	
+	/*
+	 * liefere alle x,y Koordinaten der Spielfeldes zurück (als Liste)
+	 */
 	public List<String> getFieldCoordnates(){
 		return fieldCoordinatelist;
 	}
-	
+	/*
+	 * liefere alle x,y Koordinaten des targetfeldes zurück (als Liste)
+	 */
 	public List<String> getTargetCoordnates(int playerID){
 		switch(playerID){
 		case Player.SPIELER1:
@@ -128,27 +148,48 @@ public class Playground {
 		return null;
 	}
 	
+	/*
+	 * liefere alle x,y Koordinaten des Stackfeldes zurück (als Liste)
+	 */
 	public List<String> getStackCoords(){
 		return stackCoords;
 	}
+	
+	/*
+	 * Fuege Spieler hinzu und erhöhe die Anzahl der Mitspieler
+	 */
 	public void addPlayer(Player newPlayer){		
 		players.add(newPlayer);
 		anzMit++;
 	}
+	
+	/*
+	 * liefere die Anzahl der Mitspieler zurück
+	 */
 	public int getAnzMit() {
 		return anzMit;
 	}
 
+	/*
+	 * setze die Anzahl der Mitspieler auf anzMit
+	 */
 	public void setAnzMit(int anzMit) {
 		this.anzMit = anzMit;
 	}
 	
+	/*
+	 * liefere Figur an Stelle position zurück
+	 */
 	public Figure getFigureOnPosition(int position){
 		if(this.fieldArray[position] == null){
 			return null;
 		}
 	    return this.fieldArray[position];
 	}
+	
+	/*
+	 * setze Figur auf Stelle position
+	 */
 	public void setFigureOnPosition(Figure fig, int position){
 		if (fig != null) {
 			fig.setFigurePos(position);
@@ -156,6 +197,10 @@ public class Playground {
 	    this.fieldArray[position] = fig;
 	}
 	
+	/*
+	 * pruefe ob Feld an Stelle position belegt ist
+	 * falls nein => false
+	 */
 	public boolean isOccupied(int position) {
 	    if(this.fieldArray[position] == null) {
 		return false;
@@ -163,12 +208,23 @@ public class Playground {
 	    return true;
 	}	
 	
+	/*
+	 * gebe Spieler mit SpielerID zurück
+	 */
 	public Player getPlayer(int playerID){
 	    return players.get(playerID) ;
 	}
+	
+	/*
+	 * gebe Feld von Figuren des Spielfeldes zurück
+	 */
 	public Figure[] getFieldArray(){
 		return fieldArray;
 	}
+	
+	/*
+	 * gebe Feld von Figuren des targetarray zurück (Spieler speziefisch)
+	 */
 	public Figure[] getTargetArray(int playerID){
 		switch(playerID){
 		case Player.SPIELER1:
@@ -184,6 +240,9 @@ public class Playground {
 		}
 	}
 	
+	/*
+	 * setz Spielfigur eines Spielers ins targetArray
+	 */
 	public void storeFigure(Figure fig, int storagePoint){
 		int c = fig.getPlayerID();
 		switch(c)
