@@ -254,6 +254,48 @@ public class Controller extends Observable {
 		 * ihrer Stelle
 		 **/
 		
+		putZielfeld(fig, oldPos);
+
+		/*
+		 * Wenn Spielerfigur am Ende des Feldes und WegLaenge kleiner als laenge
+		 * des Feldes, dann setze figur an Stelle 0 des Spielfeldes
+		 */
+
+		newPos = setFigureToFirstArray(fig, newPos);
+
+		/** wenn neues Feld besetzt und Figur auf Feld ist NICHT die eigene **/
+		if (pg.isOccupied(newPos)
+				&& pg.getFigureOnPosition(newPos).hasPlayer() != fig
+						.hasPlayer()) {
+			kickEnemyFigure(newPos);
+			pg.setFigureOnPosition(null, oldPos);
+			pg.setFigureOnPosition(fig, newPos);
+			/** wenn neues Feld besetzt und Figur auf Feld ist die eigene **/
+		} else if (pg.isOccupied(newPos)
+				&& pg.getFigureOnPosition(newPos).hasPlayer() == fig
+						.hasPlayer()) {
+			/** waehle andere Figur zum Laufen **/
+			notifyChooseFigure();
+			notifyObserversPrintActiveFigures();
+			return;
+
+		}
+		pg.setFigureOnPosition(null, oldPos);
+		pg.setFigureOnPosition(fig, newPos);
+		return;
+	}
+
+	private int setFigureToFirstArray(Figure fig, int newPos) {
+		if (newPos > MAXGEFAHRENEWEGLAENGE) {
+			newPos = newPos % MAXGEFAHRENEWEGLAENGE;
+			fig.setFigurePos(newPos);
+		} else {
+			fig.setFigurePos(newPos);
+		}
+		return newPos;
+	}
+
+	private void putZielfeld(Figure fig, int oldPos) {
 		int c = fig.getWeglaenge();
 		if (c > MAXGEFAHRENEWEGLAENGE) {
 
@@ -297,39 +339,6 @@ public class Controller extends Observable {
 			notifyObserversPrintActiveFigures();
 
 		}
-
-		/*
-		 * Wenn Spielerfigur am Ende des Feldes und WegLaenge kleiner als laenge
-		 * des Feldes, dann setze figur an Stelle 0 des Spielfeldes
-		 */
-
-		if (newPos > MAXGEFAHRENEWEGLAENGE) {
-			newPos = newPos % MAXGEFAHRENEWEGLAENGE;
-			fig.setFigurePos(newPos);
-		} else {
-			fig.setFigurePos(newPos);
-		}
-
-		/** wenn neues Feld besetzt und Figur auf Feld ist NICHT die eigene **/
-		if (pg.isOccupied(newPos)
-				&& pg.getFigureOnPosition(newPos).hasPlayer() != fig
-						.hasPlayer()) {
-			kickEnemyFigure(newPos);
-			pg.setFigureOnPosition(null, oldPos);
-			pg.setFigureOnPosition(fig, newPos);
-			/** wenn neues Feld besetzt und Figur auf Feld ist die eigene **/
-		} else if (pg.isOccupied(newPos)
-				&& pg.getFigureOnPosition(newPos).hasPlayer() == fig
-						.hasPlayer()) {
-			/** waehle andere Figur zum Laufen **/
-			notifyChooseFigure();
-			notifyObserversPrintActiveFigures();
-			return;
-
-		}
-		pg.setFigureOnPosition(null, oldPos);
-		pg.setFigureOnPosition(fig, newPos);
-		return;
 	}
 
 	public void setPickFigure(int figureID) {
